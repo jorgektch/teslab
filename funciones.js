@@ -1,12 +1,12 @@
-function simplificar(expresion) {
+function simplify(expresion) {
     return expresion[0];
 }
 
-function resolver(expresion) {
+function solve(expresion) {
     return expresion[2];
 }
 
-function evaluar(expression){
+function evaluate(expression){
     let tokens = expression.split('');
 
     // Stack for numbers: 'values'
