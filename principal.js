@@ -1,3 +1,4 @@
+import { f1 } from "fuciones.js";
 function principal(event) {
     //log.textContent = `Form Submitted! Timestamp: ${event.timeStamp}`;
     //log.textContent = `Form Submitted! Timestamp: ${entrada}`;
@@ -23,7 +24,7 @@ function procesar(entrada) {
         if(pos != -1){
             let expresion = entrada.substring(comando.length,entrada.length);
             //return "xd"
-            return "entrada: "+entrada+", expresion: "+expresion;
+            return "comando: "+comando+", expresion: "+expresion;
         }
         
         //return "No se puede procesar";
