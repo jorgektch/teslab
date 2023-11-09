@@ -129,15 +129,16 @@ class ArrayList {
   }
 
   toString() {
-    let result = [];
-    let currentNode = this.head;
-
-    while (currentNode) {
-      result.push(currentNode.getElement());
-      currentNode = currentNode.getNext();
+    if (this.index === 0) {
+      return "[]";
     }
 
-    return `[${result.join(' ')}]`;
+    let result = "[";
+    for (let i = 0; i < this.index - 1; i++) {
+      result += this.array[i] + ", ";
+    }
+    result += this.array[this.index - 1] + "]";
+    return result;
   }
 
   indexOf(element) {
@@ -162,4 +163,4 @@ class ArrayList {
  
 }
 
-//export default ArrayList;
+export default ArrayList;
