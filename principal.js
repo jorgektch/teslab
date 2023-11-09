@@ -1,4 +1,5 @@
-import { simplificar } from "fuciones.js";
+//import { simplificar } from "funciones.js";
+
 function principal(event) {
     //log.textContent = `Form Submitted! Timestamp: ${event.timeStamp}`;
     //log.textContent = `Form Submitted! Timestamp: ${entrada}`;
@@ -23,8 +24,9 @@ function procesar(entrada) {
         
         if(pos != -1){
             let expresion = entrada.substring(comando.length,entrada.length);
-            //return "xd"
-            return "comando: "+comando+", expresion: "+expresion;
+            //return "comando: "+comando+", expresion: "+expresion;
+            if(comando == comandos[0]) return simplificar(expresion);
+            if(comando == comandos[1]) return resolver(expresion);
         }
         
         //return "No se puede procesar";
