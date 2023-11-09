@@ -1,86 +1,248 @@
+import Node from "./Node";
 
-
-// Doubly Linked list Node
-class Node {
-    // Constructor to create a new node
-    // next and prev is by default initialized as null
-    constructor(val) {
-        // To store the value
-        this.data = val;
- 
-        // To link the next Node
-        this.next = null;
- 
-        // TO link the previous Node
-        this.prev = null;
-    }
-}
- 
-// Doubly Linked List
-class DoublyLinkedList {
-    // Constructor to create a new linked list
+class DoubleLinkedList {
     constructor() {
-        // To contain the first item of the list
-        this.head = null;
- 
-        // To contain the last item of the list
-        this.tail = null;
+      this.first = null;
+      this.last = null;
+      this.size = 0;
     }
- 
-    // To check if the list is empty
-    isEmpty() {
-        if (this.head == null) return true;
-        return false;
-    }
- 
-    // Method to add item at the last of doubly linked list
-    addItem(val) {
-         
-        // Create a temporary variable
-        let temp = new Node(val);
- 
-        // If the list is empty link assign
-        // new node to both head and tail
-        if (this.head == null) {
-            this.head = temp;
-            this.tail = temp;
+  
+    insert(element, index) {
+      if (index < 0 || index >= this.size) {
+        return;
+      }
+  
+      if (index === 0) {
+        this.prepend(element);
+        return;
+      }
+  
+      if (index === this.size - 1) {
+        this.append(element);
+        return;
+      }
+  
+      const newNode = new Node(element);
+  
+      if (this.size === 0) {
+        this.first = this.last = newNode;
+      } else {
+        let currentIndex = 0;
+        let currentNode = this.first;
+  
+        while (currentIndex < index - 1) {
+          currentNode = currentNode.getNext();
+          currentIndex++;
         }
- 
-        // else add item to the tail and shift tail
-        else {
-            this.tail.next = temp;
-            this.tail = this.tail.next;
+  
+        newNode.setNext(currentNode.getNext());
+        newNode.setPrev(currentNode);
+        currentNode.getNext().setPrev(newNode);
+        currentNode.setNext(newNode);
+      }
+  
+      this.size++;
+    }
+  
+    append(element) {
+      const newNode = new Node(element);
+  
+      if (!this.first) {
+        this.first = this.last = newNode;
+      } else {
+        newNode.setPrev(this.last);
+        this.last.setNext(newNode);
+        this.last = newNode;
+      }
+  
+      this.size++;
+    }
+  
+    prepend(element) {
+      const newNode = new Node(element);
+  
+      if (!this.first) {
+        this.first = this.last = newNode;
+      } else {
+        newNode.setNext(this.first);
+        this.first.setPrev(newNode);
+        this.first = newNode;
+      }
+  
+      this.size++;
+    }
+  
+    removeLast() {
+        if (this.size !== 0) {
+            if (this.first === this.last) {
+                this.first = this.last = null;
+            } else {
+                this.last = this.last.getPrev();
+                this.last.setNext(null);
+            }
+            this.size--;
         }
     }
- 
-    // To traverse and display the list
-    display() {
- 
-        // Check if the List is empty
-        if (!this.isEmpty()) {
- 
-            // traverse the list using new current pointer
-            let curr = this.head;
-            while (curr !== null) {
- 
-                // Display element
-                console.log(curr.data);
- 
-                // Shift the current pointer
-                curr = curr.next;
+  
+    removeCoincidence(element) {
+        while(this.getItem(element)){
+            if (this.size !== 0) {                
+                if (this.first.getData() === element) {
+                    this.removeFirst();
+                    return;
+                }
+
+                if (this.last.getData() === element) {
+                    this.removeLast();
+                    return;
+                }
+
+                let currentNode = this.first;
+
+                while (currentNode.getNext() && currentNode.getNext().getData() !== element) {
+                    currentNode = currentNode.getNext();
+                }
+
+                if (currentNode.getNext()) {
+                    currentNode.setNext(currentNode.getNext().getNext());
+                    currentNode.getNext().setPrev(currentNode);
+                    this.size--;
+                }
             }
         }
+
+    }
+  
+    remove(index) {
+      if (index < 0 || index >= this.size) {
+        return;
+      }
+  
+      if (this.size !== 0) {
+        if (index === 0) {
+          this.removeFirst();
+          return;
+        }
+  
+        if (index === this.size - 1) {
+          this.removeLast();
+          return;
+        }
+  
+        let currentIndex = 0;
+        let currentNode = this.first;
+  
+        while (currentIndex < index - 1) {
+          currentNode = currentNode.getNext();
+          currentIndex++;
+        }
+  
+        currentNode.setNext(currentNode.getNext().getNext());
+        currentNode.getNext().setPrev(currentNode);
+        this.size--;
+      }
+    }
+  
+    removeFirst() {
+      if (this.size !== 0) {
+        if (this.first === this.last) {
+          this.first = this.last = null;
+        } else {
+          this.first = this.first.getNext();
+          this.first.setPrev(null);
+        }
+        this.size--;
+      }
+    }
+  
+    find(element) {
+      if (this.size === 0) {
+        return false;
+      }
+  
+      if (this.first.getData() === element || this.last.getData() === element) {
+        return true;
+      }
+  
+      let currentNode = this.first;
+  
+      while (currentNode.getNext()) {
+        if (currentNode.getData() === element) {
+          return true;
+        }
+        currentNode = currentNode.getNext();
+      }
+  
+      return false;
+    }
+  
+    getItem(index) {
+      if (index < 0 || index >= this.size) {
+        console.log("Out of range");
+        return -1;
+      }
+  
+      if (index === 0) {
+        return this.first.getData();
+      }
+  
+      if (index === this.size - 1) {
+        return this.last.getData();
+      }
+  
+      let currentIndex = 0;
+      let currentNode = this.first;
+  
+      while (currentIndex < index) {
+        currentNode = currentNode.getNext();
+        currentIndex++;
+      }
+  
+      return currentNode.getData();
+    }
+  
+    isEmpty() {
+      return !this.first;
+    }
+  
+    length() {
+      return this.size;
+    }
+  
+    indexOf(element) {
+      if (this.size === 0) {
+        return -1;
+      }
+  
+      if (this.first.getData() === element) {
+        return 0;
+      }
+  
+      if (this.last.getData() === element) {
+        return this.size - 1;
+      }
+  
+      let currentNode = this.first;
+      let index = 0;
+  
+      while (currentNode) {
+        if (currentNode.getData() === element) {
+          return index;
+        }
+        currentNode = currentNode.getNext();
+        index++;
+      }
+  
+      return -1;
+    }
+  
+    head() {
+      return this.first ? this.first.getData() : -1;
+    }
+  
+    tail() {
+      return this.last ? this.last.getData() : -1;
     }
 }
- 
-// Create new Doubly Linked List 
-const dll = new DoublyLinkedList();
- 
-// Add elements in the list
-dll.addItem(25);
-dll.addItem(27);
-dll.addItem(17);
-dll.addItem(29);
- 
-// Display the list
-dll.display();
+
+export default DoubleLinkedList;

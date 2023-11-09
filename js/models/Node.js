@@ -1,6 +1,5 @@
 class Node {
 
-
     //------------------------- Constructor ------------------------
 
     constructor(element) {
@@ -65,3 +64,6 @@ class Node {
 
   }
   
+
+
+export default Node;
