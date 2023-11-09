@@ -8,6 +8,7 @@
     --dark3: #151d2a;
     --dark4: #121d2f;
 }
+
 .size-full {
     width: 100%;
     height: 100%;
@@ -70,4 +71,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.result {
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.result table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result td {
+    padding: 1rem 0;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+.td-border {
+    color: #aaaaaa;
+    border-left: 1px solid white;
+}
+.result thead {
+    border-bottom: 1px solid white;
 }
