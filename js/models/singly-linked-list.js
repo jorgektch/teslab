@@ -1,232 +1,263 @@
-class Node {
-    // constructor
-    constructor(element) {
-        this.element = element;
-        this.next = null
-    }
-}
+import Node from "./Node";
 
-// linkedlist class
 class LinkedList {
     constructor() {
-        this.head = null;
-        this.size = 0;
+      this.first = null;
+      this.last = null;
+      this.size = 0;
     }
-
-    // adds an element at the end
-    // of list
-    add(element) {
-        // creates a new node
-        var node = new Node(element);
-
-        // to store current node
-        var current;
-
-        // if list is Empty add the
-        // element and make it head
-        if (this.head == null)
-            this.head = node;
-        else {
-            current = this.head;
-
-            // iterate to the end of the
-            // list
-            while (current.next) {
-                current = current.next;
-            }
-
-            // add node
-            current.next = node;
+  
+    insert(element, index) {
+      if (index < 0 || index > this.size) {
+        return;
+      }
+  
+      if (index === 0) {
+        this.prepend(element);
+        return;
+      }
+  
+      if (index === this.size - 1) {
+        this.append(element);
+        return;
+      }
+  
+      const newNode = new Node(element);
+  
+      if (this.size === 0) {
+        this.first = this.last = newNode;
+      } else {
+        let i = 0;
+        let currentNode = this.first;
+  
+        while (i + 1 < index && currentNode.getNext() !== null) {
+          currentNode = currentNode.getNext();
+          i++;
         }
-        this.size++;
+  
+        newNode.setNext(currentNode.getNext());
+        currentNode.setNext(newNode);
+      }
+  
+      this.size++;
     }
-
-    // insert element at the position index
-    // of the list
-    insertAt(element, index) {
-        if (index < 0 || index > this.size)
-            return console.log("Please enter a valid index.");
-        else {
-            // creates a new node
-            var node = new Node(element);
-            var curr, prev;
-
-            curr = this.head;
-
-            // add the element to the
-            // first index
-            if (index == 0) {
-                node.next = this.head;
-                this.head = node;
-            } else {
-                curr = this.head;
-                var it = 0;
-
-                // iterate over the list to find
-                // the position to insert
-                while (it < index) {
-                    it++;
-                    prev = curr;
-                    curr = curr.next;
+  
+    append(element) {
+      const newNode = new Node(element);
+  
+      if (this.size === 0) {
+        this.first = this.last = newNode;
+      } else {
+        this.last.setNext(newNode);
+        this.last = newNode;
+      }
+  
+      this.size++;
+    }
+  
+    prepend(element) {
+      const newNode = new Node(element);
+  
+      if (this.size === 0) {
+        this.first = this.last = newNode;
+      } else {
+        newNode.setNext(this.first);
+        this.first = newNode;
+      }
+  
+      this.size++;
+    }
+  
+    removeLast() {
+      if (this.size !== 0) {
+        if (this.first === this.last) {
+          this.first = this.last = null;
+        } else {
+          let currentNode = this.first;
+          while (currentNode.getNext().getNext() !== null) {
+            currentNode = currentNode.getNext();
+          }
+          currentNode.setNext(null);
+        }
+        this.size--;
+      }
+    }
+  
+    removeCoincidence(element) {
+        while(this.getItem(element)){
+            if (this.size !== 0) {
+                if (this.first.getData() === element) {
+                    this.removeFirst();
+                    return;
                 }
-
-                // adding an element
-                node.next = curr;
-                prev.next = node;
+                if (this.last.getData() === element) {
+                    this.removeLast();
+                    return;
+                }
+                let currentNode = this.first;
+                while (
+                    currentNode.getNext() !== null &&
+                    currentNode.getNext().getData() !== element
+                ) {
+                    currentNode = currentNode.getNext();
+                }
+                if (currentNode.getNext() !== null) {
+                    currentNode.setNext(currentNode.getNext().getNext());
+                    this.size--;
+                }
             }
-            this.size++;
         }
     }
-
-    // removes an element from the
-    // specified location
-    removeFrom(index) {
-        if (index < 0 || index >= this.size)
-            return console.log("Please Enter a valid index");
-        else {
-            var curr, prev, it = 0;
-            curr = this.head;
-            prev = curr;
-
-            // deleting first element
-            if (index === 0) {
-                this.head = curr.next;
-            } else {
-                // iterate over the list to the
-                // position to remove an element
-                while (it < index) {
-                    it++;
-                    prev = curr;
-                    curr = curr.next;
-                }
-
-                // remove the element
-                prev.next = curr.next;
-            }
-            this.size--;
-
-            // return the remove element
-            return curr.element;
+  
+    remove(index) {
+      if (index < 0 || index > this.size - 1) {
+        return;
+      }
+      if (this.size !== 0) {
+        if (index === 0) {
+          this.removeFirst();
+          return;
         }
+        if (index === this.size - 1) {
+          this.removeLast();
+          return;
+        }
+        let currentNode = this.first;
+        let i = 0;
+        while (
+          currentNode.getNext() !== null &&
+          i + 1 < index
+        ) {
+          currentNode = currentNode.getNext();
+          i++;
+        }
+        if (currentNode.getNext() !== null) {
+          currentNode.setNext(currentNode.getNext().getNext());
+          this.size--;
+        }
+      }
     }
-
-    // removes a given element from the
-    // list
-    removeElement(element) {
-        var current = this.head;
-        var prev = null;
-
-        // iterate over the list
-        while (current != null) {
-            // comparing element with current
-            // element if found then remove the
-            // and return true
-            if (current.element === element) {
-                if (prev == null) {
-                    this.head = current.next;
-                } else {
-                    prev.next = current.next;
-                }
-                this.size--;
-                return current.element;
-            }
-            prev = current;
-            current = current.next;
+  
+    removeFirst() {
+      if (this.size !== 0) {
+        if (this.first === this.last) {
+          this.first = this.last = null;
+        } else {
+          this.first = this.first.getNext();
+        }
+        this.size--;
+      }
+    }
+  
+    find(element) {
+      if (this.size === 0) {
+        return false;
+      }
+      if (this.first.getData() === element || this.last.getData() === element) {
+        return true;
+      }
+      let currentNode = this.first;
+      while (currentNode.getNext() !== null) {
+        if (currentNode.getData() === element) {
+          return true;
+        }
+        currentNode = currentNode.getNext();
+      }
+      return false;
+    }
+  
+    getItem(index) {
+      if (index < 0 || index > this.size - 1) {
+        console.log("Out of range");
+        return -1;
+      } else {
+        if (index === 0) {
+          return this.first.getData();
+        }
+        if (index === this.size - 1) {
+          return this.last.getData();
+        }
+        let i = 0;
+        let currentNode = this.first;
+        while (currentNode.getNext() !== null && i <= index) {
+          if (i === index) {
+            return currentNode.getData();
+          }
+          currentNode = currentNode.getNext();
+          i++;
         }
         return -1;
+      }
     }
-
-
-    // finds the index of element
-    indexOf(element) {
-        var count = 0;
-        var current = this.head;
-
-        // iterate over the list
-        while (current != null) {
-            // compare each element of the list
-            // with given element
-            if (current.element === element)
-                return count;
-            count++;
-            current = current.next;
-        }
-
-        // not found
-        return -1;
-    }
-
-    // checks the list for empty
+  
     isEmpty() {
-        return this.size == 0;
+      return this.size === 0;
     }
-
-    // gives the size of the list
-    size_of_list() {
-        console.log(this.size);
+  
+    length() {
+      return this.size;
     }
-
-
-    // prints the list items
-    printList() {
-        var curr = this.head;
-        var str = "";
-        while (curr) {
-            str += curr.element + " ";
-            curr = curr.next;
+  
+    indexOf(element) {
+      if (this.size === 0) {
+        return -1;
+      } else {
+        if (this.first.getData() === element) {
+          return 0;
         }
-        console.log(str);
+        if (this.last.getData() === element) {
+          return this.size - 1;
+        }
+        let currentNode = this.first;
+        let i = 0;
+        while (currentNode !== null) {
+          if (currentNode.getData() === element) {
+            return i;
+          }
+          currentNode = currentNode.getNext();
+          i++;
+        }
+        return -1;
+      }
     }
-
+  
+    head() {
+      return this.first ? this.first.getData() : -1;
+    }
+  
+    tail() {
+      return this.last ? this.last.getData() : -1;
+    }
+  
+    min() {
+      if (this.size === 0) {
+        return 0;
+      }
+      let min = this.first.getData();
+      let currentNode = this.first;
+      while (currentNode !== null) {
+        if (min > currentNode.getData()) {
+          min = currentNode.getData();
+        }
+        currentNode = currentNode.getNext();
+      }
+      return min;
+    }
+  
+    max() {
+      if (this.size === 0) {
+        return 0;
+      }
+      let max = this.first.getData();
+      let currentNode = this.first;
+      while (currentNode !== null) {
+        if (max < currentNode.getData()) {
+          max = currentNode.getData();
+        }
+        currentNode = currentNode.getNext();
+      }
+      return max;
+    }
 }
 
-// creating an object for the
-// Linkedlist class
-var ll = new LinkedList();
-
-// testing isEmpty on an empty list
-// returns true
-console.log(ll.isEmpty());
-
-// adding element to the list
-ll.add(10);
-
-// prints 10
-ll.printList();
-
-// returns 1
-console.log(ll.size_of_list());
-
-// adding more elements to the list
-ll.add(20);
-ll.add(30);
-ll.add(40);
-ll.add(50);
-
-// returns 10 20 30 40 50
-ll.printList();
-
-// prints 50 from the list
-console.log("is element removed ?" + ll.removeElement(50));
-
-// prints 10 20 30 40
-ll.printList();
-
-// returns 3
-console.log("Index of 40 " + ll.indexOf(40));
-
-// insert 60 at second position
-// ll contains 10 20 60 30 40
-ll.insertAt(60, 2);
-
-ll.printList();
-
-// returns false
-console.log("is List Empty ? " + ll.isEmpty());
-
-// remove 3rd element from the list
-console.log(ll.removeFrom(3));
-
-// prints 10 20 60 40
-ll.printList();
-
+export default LinkedList;
