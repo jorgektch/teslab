@@ -1,4 +1,4 @@
-import { f1 } from "fuciones.js";
+import { simplificar } from "fuciones.js";
 function principal(event) {
     //log.textContent = `Form Submitted! Timestamp: ${event.timeStamp}`;
     //log.textContent = `Form Submitted! Timestamp: ${entrada}`;
