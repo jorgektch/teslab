@@ -24,7 +24,7 @@ class Stack {
     }
   
     peek() {
-      return this.size === 0 ? -1 : this.last.getData();
+      return this.size === 0 ? -1 : this.last.getElement();
     }
   
     length() {

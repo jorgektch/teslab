@@ -122,7 +122,7 @@ class ExpressionEvaluator {
             case '¬': //not
                 return 3;
             case '∧': //and
-            case '∨': //or
+            case 'V': //or
                 return 2;
             case '↑': //nand
             case '↓': //nor
@@ -168,4 +168,4 @@ class ExpressionEvaluator {
 }
 
 const x = new ExpressionEvaluator();
-console.log(x.infixToPrefixBoolean('A∨B∧(C∧D∨¬E)'))
+console.log(x.infixToPrefixBoolean('AVB∧(C∧DV¬E)'))
