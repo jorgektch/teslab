@@ -87,19 +87,19 @@ class DoubleLinkedList {
     removeCoincidence(element) {
         while(this.getItem(element)){
             if (this.size !== 0) {                
-                if (this.first.getData() === element) {
+                if (this.first.getElement() === element) {
                     this.removeFirst();
                     return;
                 }
 
-                if (this.last.getData() === element) {
+                if (this.last.getElement() === element) {
                     this.removeLast();
                     return;
                 }
 
                 let currentNode = this.first;
 
-                while (currentNode.getNext() && currentNode.getNext().getData() !== element) {
+                while (currentNode.getNext() && currentNode.getNext().getElement() !== element) {
                     currentNode = currentNode.getNext();
                 }
 
@@ -160,14 +160,14 @@ class DoubleLinkedList {
         return false;
       }
   
-      if (this.first.getData() === element || this.last.getData() === element) {
+      if (this.first.getElement() === element || this.last.getElement() === element) {
         return true;
       }
   
       let currentNode = this.first;
   
       while (currentNode.getNext()) {
-        if (currentNode.getData() === element) {
+        if (currentNode.getElement() === element) {
           return true;
         }
         currentNode = currentNode.getNext();
@@ -183,11 +183,11 @@ class DoubleLinkedList {
       }
   
       if (index === 0) {
-        return this.first.getData();
+        return this.first.getElement();
       }
   
       if (index === this.size - 1) {
-        return this.last.getData();
+        return this.last.getElement();
       }
   
       let currentIndex = 0;
@@ -198,7 +198,7 @@ class DoubleLinkedList {
         currentIndex++;
       }
   
-      return currentNode.getData();
+      return currentNode.getElement();
     }
   
     isEmpty() {
@@ -214,11 +214,11 @@ class DoubleLinkedList {
         return -1;
       }
   
-      if (this.first.getData() === element) {
+      if (this.first.getElement() === element) {
         return 0;
       }
   
-      if (this.last.getData() === element) {
+      if (this.last.getElement() === element) {
         return this.size - 1;
       }
   
@@ -226,7 +226,7 @@ class DoubleLinkedList {
       let index = 0;
   
       while (currentNode) {
-        if (currentNode.getData() === element) {
+        if (currentNode.getElement() === element) {
           return index;
         }
         currentNode = currentNode.getNext();
@@ -237,11 +237,11 @@ class DoubleLinkedList {
     }
   
     head() {
-      return this.first ? this.first.getData() : -1;
+      return this.first ? this.first.getElement() : -1;
     }
   
     tail() {
-      return this.last ? this.last.getData() : -1;
+      return this.last ? this.last.getElement() : -1;
     }
 }
 

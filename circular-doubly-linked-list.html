@@ -1,1 +1,46 @@
+class circularList {
+    constructor () {
+        this.nodes = []
+    }
 
+    fillList(array, startIndex, endIndex) {
+        array.slice(startIndex, endIndex).forEach((element, index, arraySlice) => {
+            let node = new Node(index, arraySlice[index - 1], arraySlice[index], arraySlice[index + 1]);
+            this.nodes.push(node);
+        });
+    }
+
+    getForward(index) {
+        return this.nodes[index].getNextNode()
+    }
+
+    getNode(index) {
+        return this.nodes[index].getContent()
+    }
+
+    getBackward(index) {
+        return this.nodes[index].getPreviousNode()
+    }
+
+}
+
+class Node {
+    constructor (index, previousNode, currentNode, nextNode) {
+        this.index = index;
+        this.previousNode = previousNode;
+        this.currentNode =  currentNode;
+        this.nextNode = nextNode;
+    }
+
+    getPreviousNode () {
+        return this.previousNode.getContent()
+    }
+
+    getContent () {
+        return this.currentNode
+    }
+
+    getNextNode () {
+        return this.nextNode.getContent()
+    }
+}

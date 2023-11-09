@@ -86,18 +86,18 @@ class LinkedList {
     removeCoincidence(element) {
         while(this.getItem(element)){
             if (this.size !== 0) {
-                if (this.first.getData() === element) {
+                if (this.first.getElement() === element) {
                     this.removeFirst();
                     return;
                 }
-                if (this.last.getData() === element) {
+                if (this.last.getElement() === element) {
                     this.removeLast();
                     return;
                 }
                 let currentNode = this.first;
                 while (
                     currentNode.getNext() !== null &&
-                    currentNode.getNext().getData() !== element
+                    currentNode.getNext().getElement() !== element
                 ) {
                     currentNode = currentNode.getNext();
                 }
@@ -153,12 +153,12 @@ class LinkedList {
       if (this.size === 0) {
         return false;
       }
-      if (this.first.getData() === element || this.last.getData() === element) {
+      if (this.first.getElement() === element || this.last.getElement() === element) {
         return true;
       }
       let currentNode = this.first;
       while (currentNode.getNext() !== null) {
-        if (currentNode.getData() === element) {
+        if (currentNode.getElement() === element) {
           return true;
         }
         currentNode = currentNode.getNext();
@@ -172,16 +172,16 @@ class LinkedList {
         return -1;
       } else {
         if (index === 0) {
-          return this.first.getData();
+          return this.first.getElement();
         }
         if (index === this.size - 1) {
-          return this.last.getData();
+          return this.last.getElement();
         }
         let i = 0;
         let currentNode = this.first;
         while (currentNode.getNext() !== null && i <= index) {
           if (i === index) {
-            return currentNode.getData();
+            return currentNode.getElement();
           }
           currentNode = currentNode.getNext();
           i++;
@@ -202,16 +202,16 @@ class LinkedList {
       if (this.size === 0) {
         return -1;
       } else {
-        if (this.first.getData() === element) {
+        if (this.first.getElement() === element) {
           return 0;
         }
-        if (this.last.getData() === element) {
+        if (this.last.getElement() === element) {
           return this.size - 1;
         }
         let currentNode = this.first;
         let i = 0;
         while (currentNode !== null) {
-          if (currentNode.getData() === element) {
+          if (currentNode.getElement() === element) {
             return i;
           }
           currentNode = currentNode.getNext();
@@ -222,22 +222,22 @@ class LinkedList {
     }
   
     head() {
-      return this.first ? this.first.getData() : -1;
+      return this.first ? this.first.getElement() : -1;
     }
   
     tail() {
-      return this.last ? this.last.getData() : -1;
+      return this.last ? this.last.getElement() : -1;
     }
   
     min() {
       if (this.size === 0) {
         return 0;
       }
-      let min = this.first.getData();
+      let min = this.first.getElement();
       let currentNode = this.first;
       while (currentNode !== null) {
-        if (min > currentNode.getData()) {
-          min = currentNode.getData();
+        if (min > currentNode.getElement()) {
+          min = currentNode.getElement();
         }
         currentNode = currentNode.getNext();
       }
@@ -248,11 +248,11 @@ class LinkedList {
       if (this.size === 0) {
         return 0;
       }
-      let max = this.first.getData();
+      let max = this.first.getElement();
       let currentNode = this.first;
       while (currentNode !== null) {
-        if (max < currentNode.getData()) {
-          max = currentNode.getData();
+        if (max < currentNode.getElement()) {
+          max = currentNode.getElement();
         }
         currentNode = currentNode.getNext();
       }

@@ -1,57 +1,215 @@
-class Pila {
+class Node {
+
+  //------------------------- Constructor ------------------------
+
+  constructor(element) {
+      this._element = element;
+      this._next = null;
+      this._prev = null;
+      this._left = null;
+      this._right = null;
+      this._middle = null;
+  }
+
+  //------------------------- Get & Set ----------------------------
+
+  getElement() {
+    return this._element;
+  }
+
+  setElement(element) {
+    this._element = element;
+  }
+
+  getNext() {
+    return this._next;
+  }
+
+  setNext(node) {
+    this._next = node;
+  }
+
+  getPrev() {
+    return this._prev;
+  }
+
+  setPrev(node) {
+    this._prev = node;
+  }
+
+  getLeft() {
+    return this._left;
+  }
+
+  setLeft(node) {
+    this._left = node;
+  }
+
+  getRight() {
+    return this._right;
+  }
+
+  setRight(node) {
+    this._right = node;
+  }
+  
+  getMiddle(){
+      return this._middle;
+  }
+
+  setMiddle(){
+      return this._middle;
+  }
+
+
+}
+
+
+class Stack {
   constructor() {
-    this.items = [];
+    this.size = 0;
+    this.last = null;
   }
 
-  // Agregar un elemento a la pila
-  push(elemento) {
-    this.items.push(elemento);
+  insert(element) {
+    const newNode = new Node(element);
+    newNode.setPrev(this.last);
+    this.last = newNode;
+    this.size++;
   }
 
-  // Eliminar y devolver el elemento superior de la pila
   pop() {
-    if (this.isEmpty()) {
-      return "La pila está vacía";
+    if (this.size !== 0) {
+      const num = this.last.getElement();
+      this.last = this.last.getPrev();
+      this.size--;
+      return num;
     }
-    return this.items.pop();
+    return -1;
   }
 
-  // Ver el elemento superior de la pila sin eliminarlo
   peek() {
-    if (this.isEmpty()) {
-      return "La pila está vacía";
-    }
-    return this.items[this.items.length - 1];
+    return this.size === 0 ? -1 : this.last.getElement();
   }
 
-  // Verificar si la pila está vacía
+  length() {
+    return this.size;
+  }
+
   isEmpty() {
-    return this.items.length === 0;
-  }
-
-  // Obtener el tamaño de la pila
-  size() {
-    return this.items.length;
-  }
-
-  // Vaciar la pila
-  clear() {
-    this.items = [];
+    return this.size === 0;
   }
 }
 
-// Ejemplo de uso
-const miPila = new Pila();
 
-miPila.push(1);
-miPila.push(2);
-miPila.push(3);
 
-console.log("Elemento superior:", miPila.peek()); // Output: 3
+class ExpressionEvaluator {
+    /**
+     * Evaluates if a character is letter or digit
+     * @param {string} char character
+     * @returns true if is letter or digit
+     */
+    isLetterOrDigit(char) {
+        return /[a-zA-Z0-9]/.test(char);
+    }
+    /**
+     * Receives a boolean operator, it can be ¬(NOT), ∧(AND), ∨(OR), etc. The function returns the precedence value for prefix or postfix expression evaluation
+     * @param {string} operator boolean operator
+     * @returns Precedence value 
+     */
+    getPrecedenceBoolean(operator) {
+        switch (operator) {
+            case '¬': //not
+                return 3;
+            case '∧': //and
+            case '∨': //or
+                return 2;
+            case '↑': //nand
+            case '↓': //nor
+            case '⊕': //xor
+            case '⊙': //xnor
+            case '→': //implica
+                return 1;
+            default:
+                return 0;
+        }
+    }
+    reverseString(str) {
+      let x = "";
+      for (let i = str.length-1; i >= 0; i--) {
+        x += str.charAt(i);
+      }
+      return x;
+    }
+    /**
+     * 
+     * @param {string} infix Infix expression
+     * @returns Prefix expression
+     */
+    infixToPrefixBoolean(infix) {
+        const stack = new Stack();
+        let prefix = "";
+        const infixR = this.reverseString(infix);
+        for (let i = 0; i < infixR.length; i++) {
+            const char = infixR.charAt(i);
+            if (this.isLetterOrDigit(char)) {
+                prefix += char;
+            } else if (char === ')') {
+                stack.insert(char);
+            } else if (char === '(') {
+                while (!stack.isEmpty() && stack.peek() != ')') {
+                    prefix += stack.pop();
+                }
+                stack.pop();
+            } else {
+              if(!stack.isEmpty()){
+                if(this.getPrecedenceBoolean(char) >= this.getPrecedenceBoolean(stack.peek())){
+                    stack.insert(char);
+                }else{
+                    prefix += stack.pop();
+                    stack.insert(char);                
+                }  
+                
+              }else{
+                  stack.insert(char);
+              }
+            }
+        }
+        while (!stack.isEmpty()) {
+            prefix += stack.pop();
+        }
+        return this.reverseString(prefix);
+    }
+    infixToPostfix(infix) {
+      const stack = new Stack();
+      let postfix = "";
+  
+      for (let i = 0; i < infix.length; i++) {s
+          const char = infix.charAt(i);
+  
+          if (this.isLetterOrDigit(char)) {
+              postfix += char;
+          } else if (char === '(') {
+              stack.insert(char);
+          } else if (char === ')') {
+              while (!stack.isEmpty() && stack.peek() !== '(') {
+                  postfix += stack.pop();
+              }
+              stack.pop(); 
+          } else {
+              while (!stack.isEmpty() && this.getPrecedenceBoolean(char) <= this.getPrecedenceBoolean(stack.peek())) {
+                  postfix += stack.pop();
+              }
+              stack.insert(char);
+          }
+      }
+      while (!stack.isEmpty()) {
+          postfix += stack.pop();
+      }
+  
+      return postfix;
+  }
+}
 
-console.log("Eliminando elemento superior:", miPila.pop()); // Output: 3
-
-console.log("Tamaño de la pila:", miPila.size()); // Output: 2
-
-miPila.clear();
-console.log("La pila está vacía:", miPila.isEmpty()); // Output: true
+const x = new ExpressionEvaluator();
+console.log(x.infixToPostfix('A∨B∧(C∧D∨¬E)'))

@@ -22,7 +22,7 @@ class Queue { //Clase kiwi
   
     pop() {
       if (this.first) {
-        const element = this.first.getData();
+        const element = this.first.getElement();
         this.first = this.first.getNext();
         this.size--;
         return element;
@@ -31,7 +31,7 @@ class Queue { //Clase kiwi
     }
   
     peek() {
-      return this.first ? this.first.getData() : -1;
+      return this.first ? this.first.getElement() : -1;
     }
   
     length() {
