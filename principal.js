@@ -1,8 +1,6 @@
 //import { simplificar } from "funciones.js";
 
 function principal(event) {
-    //log.textContent = `Form Submitted! Timestamp: ${event.timeStamp}`;
-    //log.textContent = `Form Submitted! Timestamp: ${entrada}`;
     //event.preventDefault();
     const entrada = document.getElementById('entrada').value;
     const salida = procesar(entrada);
@@ -12,21 +10,18 @@ function principal(event) {
 
 function procesar(entrada) {
     // Set de expresiones
-    let comandos = ["simplify", "solve"];
+    let comandos = ["simplificar", "resolver"];
 
-    // 
-    
     for(let i=0; i<comandos.length; ++i){
         let comando = comandos[i];
-        console.log(comando)
-        let pos = entrada.search(comando);
-        console.log(pos!=-1)
+        let posicion = entrada.search(comando);
         
-        if(pos != -1){
-            let expresion = entrada.substring(comando.length,entrada.length);
+        if(posicion != -1){
+            let expresion = entrada.substring(comando.length + 1,entrada.length);
             //return "comando: "+comando+", expresion: "+expresion;
-            if(comando == comandos[0]) return simplificar(expresion);
-            if(comando == comandos[1]) return resolver(expresion);
+            if(comando == comandos[0]) return "Resultado: "+simplificar(expresion);
+            else if(comando == comandos[1]) return "Resultado: "+resolver(expresion);
+            else return "¡Error! No se puede procesar la expresión!"
         }
         
         //return "No se puede procesar";
@@ -42,9 +37,6 @@ function procesar(entrada) {
 
 const form = document.getElementById("formulario");
 const log = document.getElementById("resultado");
-
-const expresiones = ["simplify", "solve"];
-const fuciones = ["simplify", "solve"];
 
 form.addEventListener("submit", principal);
 
