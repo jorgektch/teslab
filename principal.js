@@ -10,7 +10,7 @@ function principal(event) {
 
 function procesar(entrada) {
     // Set de expresiones
-    let comandos = ["simplificar", "resolver"];
+    let comandos = ["evaluar", "resolver", "simplificar"];
 
     for(let i=0; i<comandos.length; ++i){
         let comando = comandos[i];
@@ -18,9 +18,9 @@ function procesar(entrada) {
         
         if(posicion != -1){
             let expresion = entrada.substring(comando.length + 1,entrada.length);
-            //return "comando: "+comando+", expresion: "+expresion;
-            if(comando == comandos[0]) return "Resultado: "+simplificar(expresion);
+            if(comando == comandos[0]) return "Resultado: "+evaluar(expresion);
             else if(comando == comandos[1]) return "Resultado: "+resolver(expresion);
+            else if(comando == comandos[2]) return "Resultado: "+simplificar(expresion);
             else return "¡Error! No se puede procesar la expresión!"
         }
         
