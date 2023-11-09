@@ -1,9 +1,7 @@
-import Node from "./Node";
-
 class ArrayList {
 
   constructor() {
-    this.head = null;
+    this.array[size];
     this.size = 0;
   }
 
@@ -13,53 +11,36 @@ class ArrayList {
       return;
     }
 
-    const newNode = new Node(element);
+    this.size++;
 
     if (index === 0) {
-      newNode.setNext(this.head);
-      this.head = newNode;
-
-    } else {
-      let currentNode = this.head;
-      let prevNode = null;
-      let currentIndex = 0;
-
-      while (currentIndex < index) {
-        prevNode = currentNode;
-        currentNode = currentNode.getNext();
-        currentIndex++;
+      for(let i = size-2; i>=0; i++){
+        this.array[i+1] = this.array[i];
       }
 
-      prevNode.setNext(newNode);
-      newNode.setNext(currentNode);
-    }
+      this.array[0] = element;
+      
+    } else {
+      for(let i = size-2; i>=index; i++){
+        this.array[i+1] = this.array[i];
+      }
 
-    this.size++;
+      this.array[index] = element;
+    }
   }
 
   append(element) {
-    const newNode = new Node(element);
-
-    if (!this.head) {
-      this.head = newNode;
-    } else {
-      let currentNode = this.head;
-
-      while (currentNode.getNext()) {
-        currentNode = currentNode.getNext();
-      }
-
-      currentNode.setNext(newNode);
-    }
-
     this.size++;
+    this.array[size-1] = element;
   }
 
   prepend(element) {
-    const newNode = new Node(element);
-    newNode.setNext(this.head);
-    this.head = newNode;
     this.size++;
+    for(let i = size-2; i>=0; i++){
+      this.array[i+1] = this.array[i];
+    }
+
+    this.array[0] = element;
   }
 
   removeLast() {
@@ -67,34 +48,8 @@ class ArrayList {
       return;
     }
 
-    this.head = this.head.getNext();
+    this.array[size-1] = null;
     this.size--;
-  }
-
-  removeCoincidence(element) {
-    while (this.getItem(element)) {
-      if (this.size === 0) {
-        return;
-      }
-
-      if (this.head.getElement() === element) {
-        this.removeLast();
-        return;
-      }
-
-      let currentNode = this.head;
-      let prevNode = null;
-
-      while (currentNode && currentNode.getElement() !== element) {
-        prevNode = currentNode;
-        currentNode = currentNode.getNext();
-      }
-
-      if (currentNode) {
-        prevNode.setNext(currentNode.getNext());
-        this.size--;
-      }
-    }
   }
 
   remove(index) {
@@ -106,40 +61,34 @@ class ArrayList {
       this.removeLast();
       return;
     }
-
-    let currentNode = this.head;
-    let prevNode = null;
-    let currentIndex = 0;
-
-    while (currentIndex < index) {
-      prevNode = currentNode;
-      currentNode = currentNode.getNext();
-      currentIndex++;
+    
+    this.array[index] = null;
+    for(let i = index; i<this.size-1; i++){
+      this.array[i] = this.array[i+1];
     }
-
-    prevNode.setNext(currentNode.getNext());
     this.size--;
+
+    
   }
 
   removeFirst() {
     if (this.size === 0) {
       return;
     }
+    
+    for(let i = 0; i<this.size-1; i++){
+      this.array[i] = this.array[i+1];
+    }
 
-    this.head = this.head.getNext();
-    this.size--;
+    this.array[size-1] = null;
   }
 
   find(element) {
-    let currentNode = this.head;
-
-    while (currentNode) {
-      if (currentNode.getElement() === element) {
+    for(let i = 0; i<this.size-1; i++){
+      if(element === this.array[i]){
         return true;
       }
-      currentNode = currentNode.getNext();
     }
-
     return false;
   }
 
@@ -148,16 +97,7 @@ class ArrayList {
       console.log("Out of range");
       return -1;
     }
-
-    let currentNode = this.head;
-    let currentIndex = 0;
-
-    while (currentIndex < index) {
-      currentNode = currentNode.getNext();
-      currentIndex++;
-    }
-
-    return currentNode.getElement();
+    return array[index];
   }
 
   isEmpty() {
@@ -201,89 +141,25 @@ class ArrayList {
   }
 
   indexOf(element) {
-    let currentNode = this.head;
-    let index = 0;
-
-    while (currentNode) {
-      if (currentNode.getElement() === element) {
+    index = 0;
+    for(let i = 0; i<size; i++){
+      if(this.array[i] === element){
         return index;
       }
-      currentNode = currentNode.getNext();
       index++;
     }
-
     return -1;
   }
 
   head() {
-    return this.head ? this.head.getElement() : -1;
+    return !this.size === 0 ? this.array[0]: -1;
   }
 
   tail() {
-    let currentNode = this.head;
-
-    while (currentNode && currentNode.getNext()) {
-      currentNode = currentNode.getNext();
-    }
-
-    return currentNode ? currentNode.getElement() : -1;
+    return !this.size === 0 ? this.array[this.size-1]: null;
   }
 
-  min() {
-    if (this.size === 0) {
-      return 0;
-    }
-
-    let min = this.head.getElement();
-    let currentNode = this.head;
-
-    while (currentNode) {
-      if (currentNode.getElement() < min) {
-        min = currentNode.getElement();
-      }
-      currentNode = currentNode.getNext();
-    }
-
-    return min;
-  }
-
-  max() {
-    if (this.size === 0) {
-      return 0;
-    }
-
-    let max = this.head.getElement();
-    let currentNode = this.head;
-
-    while (currentNode) {
-      if (currentNode.getElement() > max) {
-        max = currentNode.getElement();
-      }
-      currentNode = currentNode.getNext();
-    }
-
-    return max;
-  }
-
-  insertSorted(element) {
-    if (this.size === 0 || element >= this.head.getElement()) {
-      this.prepend(element);
-      return;
-    }
-
-    let newNode = new Node(element);
-    let current = this.head;
-    let prev = null;
-
-    while (current && element < current.getElement()) {
-      prev = current;
-      current = current.getNext();
-    }
-
-    prev.setNext(newNode);
-    newNode.setNext(current);
-    this.size++;
-  }
+ 
 }
 
-export default ArrayList;
+//export default ArrayList;
