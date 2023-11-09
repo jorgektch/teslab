@@ -14,7 +14,7 @@ export default class ExpressionEvaluator {
      * @param {string} operator boolean operator
      * @returns Precedence value 
      */
-    getPrecedenceBoolean(operator) {
+    getPrecedence(operator) {
         switch (operator) {
             case '¬': //not
                 return 3;
@@ -31,35 +31,89 @@ export default class ExpressionEvaluator {
                 return 0;
         }
     }
+    reverseString(str) {
+        let x = "";
+        for (let i = str.length-1; i >= 0; i--) {
+          x += str.charAt(i);
+        }
+        return x;
+    }
     /**
      * 
      * @param {string} infix Infix expression
      * @returns Prefix expression
      */
-    infixToPrefixBoolean(infix) {
+    infixToPrefix(infix) {
         const stack = new Stack();
         let prefix = "";
-        for (let i = infix.length-1; i >= 0; i--) {
-            const char = infix.charAt(i);
+        const infixR = this.reverseString(infix);
+        for (let i = 0; i < infixR.length; i++) {
+            const char = infixR.charAt(i);
             if (this.isLetterOrDigit(char)) {
-                prefix = char + prefix;
+                prefix += char;
             } else if (char === ')') {
                 stack.insert(char);
             } else if (char === '(') {
                 while (!stack.isEmpty() && stack.peek() != ')') {
-                    prefix = stack.pop() + prefix;
+                    prefix += stack.pop();
                 }
                 stack.pop();
             } else {
-                while (!stack.isEmpty() && this.getPrecedenceBoolean(stack.peek()) >= this.getPrecedenceBoolean(char)) {
-                    prefix = stack.pop() + prefix;
-                }
-                stack.insert(char)
+              if(!stack.isEmpty()){
+                if(this.getPrecedenceBoolean(char) >= this.getPrecedenceBoolean(stack.peek())){
+                    stack.insert(char);
+                }else{
+                    prefix += stack.pop();
+                    stack.insert(char);                
+                }  
+                
+              }else{
+                  stack.insert(char);
+              }
             }
         }
         while (!stack.isEmpty()) {
-            prefix = stack.pop() + prefix;
+            prefix += stack.pop();
         }
-        return prefix;
+        return this.reverseString(prefix);
     }
+
+    /**
+     * 
+     * @param {string} infix infix expression
+     * @returns posfix expression
+     */
+    infixToPostfix(infix) {
+        const stack = new Stack();
+        let postfix = "";
+    
+        for (let i = 0; i < infix.length; i++) {
+            const char = infix.charAt(i);
+    
+            if (this.isLetterOrDigit(char)) {
+                postfix += char;
+            } else if (char === '(') {
+                stack.push(char);
+            } else if (char === ')') {
+                while (!stack.isEmpty() && stack.peek() !== '(') {
+                    postfix += stack.pop();
+                }
+                stack.pop(); // Pop de '('
+            } else {
+                // Operador encontrado
+                while (!stack.isEmpty() && this.getPrecedenceBoolean(char) <= this.getPrecedenceBoolean(stack.peek())) {
+                    postfix += stack.pop();
+                }
+                stack.push(char);
+            }
+        }
+    
+        // Desapilar cualquier operador restante
+        while (!stack.isEmpty()) {
+            postfix += stack.pop();
+        }
+    
+        return postfix;
+    }
+    
 }

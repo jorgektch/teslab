@@ -110,7 +110,7 @@ class ExpressionEvaluator {
      * @returns true if is letter or digit
      */
     isLetterOrDigit(char) {
-        return /\w/.test(char);
+        return /[a-zA-Z0-9]/.test(char);
     }
     /**
      * Receives a boolean operator, it can be ¬(NOT), ∧(AND), ∨(OR), etc. The function returns the precedence value for prefix or postfix expression evaluation
@@ -122,7 +122,7 @@ class ExpressionEvaluator {
             case '¬': //not
                 return 3;
             case '∧': //and
-            case 'V': //or
+            case '∨': //or
                 return 2;
             case '↑': //nand
             case '↓': //nor
@@ -134,6 +134,13 @@ class ExpressionEvaluator {
                 return 0;
         }
     }
+    reverseString(str) {
+      let x = "";
+      for (let i = str.length-1; i >= 0; i--) {
+        x += str.charAt(i);
+      }
+      return x;
+    }
     /**
      * 
      * @param {string} infix Infix expression
@@ -142,30 +149,67 @@ class ExpressionEvaluator {
     infixToPrefixBoolean(infix) {
         const stack = new Stack();
         let prefix = "";
-        for (let i = infix.length-1; i >= 0; i--) {
-            const char = infix.charAt(i);
+        const infixR = this.reverseString(infix);
+        for (let i = 0; i < infixR.length; i++) {
+            const char = infixR.charAt(i);
             if (this.isLetterOrDigit(char)) {
-                prefix = char + prefix;
+                prefix += char;
             } else if (char === ')') {
                 stack.insert(char);
             } else if (char === '(') {
                 while (!stack.isEmpty() && stack.peek() != ')') {
-                    prefix = stack.pop() + prefix;
+                    prefix += stack.pop();
                 }
                 stack.pop();
             } else {
-                while (!stack.isEmpty() && this.getPrecedenceBoolean(stack.peek()) >= this.getPrecedenceBoolean(char)) {
-                    prefix = stack.pop() + prefix;
-                }
-                stack.insert(char)
+              if(!stack.isEmpty()){
+                if(this.getPrecedenceBoolean(char) >= this.getPrecedenceBoolean(stack.peek())){
+                    stack.insert(char);
+                }else{
+                    prefix += stack.pop();
+                    stack.insert(char);                
+                }  
+                
+              }else{
+                  stack.insert(char);
+              }
             }
         }
         while (!stack.isEmpty()) {
-            prefix = stack.pop() + prefix;
+            prefix += stack.pop();
         }
-        return prefix;
+        return this.reverseString(prefix);
     }
+    infixToPostfix(infix) {
+      const stack = new Stack();
+      let postfix = "";
+  
+      for (let i = 0; i < infix.length; i++) {s
+          const char = infix.charAt(i);
+  
+          if (this.isLetterOrDigit(char)) {
+              postfix += char;
+          } else if (char === '(') {
+              stack.insert(char);
+          } else if (char === ')') {
+              while (!stack.isEmpty() && stack.peek() !== '(') {
+                  postfix += stack.pop();
+              }
+              stack.pop(); 
+          } else {
+              while (!stack.isEmpty() && this.getPrecedenceBoolean(char) <= this.getPrecedenceBoolean(stack.peek())) {
+                  postfix += stack.pop();
+              }
+              stack.insert(char);
+          }
+      }
+      while (!stack.isEmpty()) {
+          postfix += stack.pop();
+      }
+  
+      return postfix;
+  }
 }
 
 const x = new ExpressionEvaluator();
-console.log(x.infixToPrefixBoolean('AVB∧(C∧DV¬E)'))
+console.log(x.infixToPostfix('A∨B∧(C∧D∨¬E)'))
