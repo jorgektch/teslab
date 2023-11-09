@@ -15,7 +15,7 @@ class Stack {
   
     pop() {
       if (this.size !== 0) {
-        const num = this.last.getData();
+        const num = this.last.getElement();
         this.last = this.last.getPrev();
         this.size--;
         return num;

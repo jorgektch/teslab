@@ -77,7 +77,7 @@ class ArrayList {
         return;
       }
 
-      if (this.head.getData() === element) {
+      if (this.head.getElement() === element) {
         this.removeLast();
         return;
       }
@@ -85,7 +85,7 @@ class ArrayList {
       let currentNode = this.head;
       let prevNode = null;
 
-      while (currentNode && currentNode.getData() !== element) {
+      while (currentNode && currentNode.getElement() !== element) {
         prevNode = currentNode;
         currentNode = currentNode.getNext();
       }
@@ -134,7 +134,7 @@ class ArrayList {
     let currentNode = this.head;
 
     while (currentNode) {
-      if (currentNode.getData() === element) {
+      if (currentNode.getElement() === element) {
         return true;
       }
       currentNode = currentNode.getNext();
@@ -157,7 +157,7 @@ class ArrayList {
       currentIndex++;
     }
 
-    return currentNode.getData();
+    return currentNode.getElement();
   }
 
   isEmpty() {
@@ -175,10 +175,10 @@ class ArrayList {
       let next = current.getNext();
 
       while (next) {
-        if ((reverse && current.getData() < next.getData()) || (!reverse && current.getData() > next.getData())) {
-          const temp = current.getData();
-          current.setData(next.getData());
-          next.setData(temp);
+        if ((reverse && current.getElement() < next.getElement()) || (!reverse && current.getElement() > next.getElement())) {
+          const temp = current.getElement();
+          current.setElement(next.getElement());
+          next.setElement(temp);
         }
 
         next = next.getNext();
@@ -193,7 +193,7 @@ class ArrayList {
     let currentNode = this.head;
 
     while (currentNode) {
-      result.push(currentNode.getData());
+      result.push(currentNode.getElement());
       currentNode = currentNode.getNext();
     }
 
@@ -205,7 +205,7 @@ class ArrayList {
     let index = 0;
 
     while (currentNode) {
-      if (currentNode.getData() === element) {
+      if (currentNode.getElement() === element) {
         return index;
       }
       currentNode = currentNode.getNext();
@@ -216,7 +216,7 @@ class ArrayList {
   }
 
   head() {
-    return this.head ? this.head.getData() : -1;
+    return this.head ? this.head.getElement() : -1;
   }
 
   tail() {
@@ -226,7 +226,7 @@ class ArrayList {
       currentNode = currentNode.getNext();
     }
 
-    return currentNode ? currentNode.getData() : -1;
+    return currentNode ? currentNode.getElement() : -1;
   }
 
   min() {
@@ -234,12 +234,12 @@ class ArrayList {
       return 0;
     }
 
-    let min = this.head.getData();
+    let min = this.head.getElement();
     let currentNode = this.head;
 
     while (currentNode) {
-      if (currentNode.getData() < min) {
-        min = currentNode.getData();
+      if (currentNode.getElement() < min) {
+        min = currentNode.getElement();
       }
       currentNode = currentNode.getNext();
     }
@@ -252,12 +252,12 @@ class ArrayList {
       return 0;
     }
 
-    let max = this.head.getData();
+    let max = this.head.getElement();
     let currentNode = this.head;
 
     while (currentNode) {
-      if (currentNode.getData() > max) {
-        max = currentNode.getData();
+      if (currentNode.getElement() > max) {
+        max = currentNode.getElement();
       }
       currentNode = currentNode.getNext();
     }
@@ -266,7 +266,7 @@ class ArrayList {
   }
 
   insertSorted(element) {
-    if (this.size === 0 || element >= this.head.getData()) {
+    if (this.size === 0 || element >= this.head.getElement()) {
       this.prepend(element);
       return;
     }
@@ -275,7 +275,7 @@ class ArrayList {
     let current = this.head;
     let prev = null;
 
-    while (current && element < current.getData()) {
+    while (current && element < current.getElement()) {
       prev = current;
       current = current.getNext();
     }
