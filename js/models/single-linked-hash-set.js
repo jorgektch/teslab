@@ -6,7 +6,7 @@ class LinkedHashSet {
         this.size = 0;
     }
 
-    add(value) {
+    insert(value) {
         if (!this.contains(value)) {
             const newNode = new Node(value);
             newNode.setNext(this.head);
@@ -18,7 +18,7 @@ class LinkedHashSet {
     contains(value) {
         let currentNode = this.head;
         while (currentNode) {
-            if (currentNode.getData() === value) {
+            if (currentNode.getElement() === value) {
                 return true;
             }
             currentNode = currentNode.getNext();
@@ -31,7 +31,7 @@ class LinkedHashSet {
             return;
         }
 
-        if (this.head.getData() === value) {
+        if (this.head.getElement() === value) {
             this.head = this.head.getNext();
             this.size--;
             return;
@@ -39,7 +39,7 @@ class LinkedHashSet {
 
         let currentNode = this.head;
         while (currentNode.getNext()) {
-            if (currentNode.getNext().getData() === value) {
+            if (currentNode.getNext().getElement() === value) {
                 currentNode.setNext(currentNode.getNext().getNext());
                 this.size--;
                 return;
@@ -65,7 +65,7 @@ class LinkedHashSet {
         let result = [];
         let currentNode = this.head;
         while (currentNode) {
-            result.push(currentNode.getData());
+            result.push(currentNode.getElement());
             currentNode = currentNode.getNext();
         }
         return `[${result.join(', ')}]`;
@@ -86,7 +86,7 @@ class LinkedHashSet {
 
         let currentNode = this.head;
         while (currentNode) {
-            if (!otherSet.contains(currentNode.getData())) {
+            if (!otherSet.contains(currentNode.getElement())) {
                 return false;
             }
             currentNode = currentNode.getNext();
@@ -100,7 +100,7 @@ class LinkedHashSet {
         return {
             next: function () {
                 if (currentNode) {
-                    const value = currentNode.getData();
+                    const value = currentNode.getElement();
                     currentNode = currentNode.getNext();
                     return { value, done: false };
                 } else {
@@ -117,9 +117,9 @@ class LinkedHashSet {
     retainAll(collection) {
         let currentNode = this.head;
         while (currentNode) {
-            if (!collection.contains(currentNode.getData())) {
+            if (!collection.contains(currentNode.getElement())) {
                 const nextNode = currentNode.getNext();
-                this.remove(currentNode.getData());
+                this.remove(currentNode.getElement());
                 currentNode = nextNode;
             } else {
                 currentNode = currentNode.getNext();
@@ -131,7 +131,7 @@ class LinkedHashSet {
         let result = [];
         let currentNode = this.head;
         while (currentNode) {
-            result.push(currentNode.getData());
+            result.push(currentNode.getElement());
             currentNode = currentNode.getNext();
         }
         return result;
