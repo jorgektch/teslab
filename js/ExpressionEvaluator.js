@@ -38,10 +38,11 @@ class ExpressionEvaluator {
     }
     /**
      * 
-     * @param {string} infix Infix expression
+     * @param {string} x Infix expression
      * @returns Prefix expression
      */
-    infixToPrefix(infix) {
+    infixToPrefix(x) {
+        const infix = this.changeOperators(x.toUpperCase());
         const stack = new Stack();
         let prefix = "";
         const infixR = this.reverseString(infix);
@@ -78,10 +79,11 @@ class ExpressionEvaluator {
 
     /**
      * xddddd
-     * @param {string} infix infix expression
+     * @param {string} x infix expression
      * @returns posfix expression
      */
-    infixToPostfix(infix) {
+    infixToPostfix(x) {
+        const infix = this.changeOperators(x.toUpperCase());
         const stack = new Stack();
         let postfix = "";
     
