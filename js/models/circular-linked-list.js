@@ -1,5 +1,3 @@
-import Node from "./Node";
-
 class CircularLinkedList {
     constructor() {
       this.head = null;
@@ -191,5 +189,4 @@ class CircularLinkedList {
       return `[${result.join(' ')}]`;
     }
   }
-
-export default CircularLinkedList  
+ 

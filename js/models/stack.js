@@ -1,5 +1,3 @@
-import Node from "./Node";
-
 class Stack {
     constructor() {
       this.size = 0;
@@ -36,5 +34,4 @@ class Stack {
     }
 }
 
-export default Stack;
   

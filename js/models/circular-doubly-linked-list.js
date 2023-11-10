@@ -1,6 +1,3 @@
-import Node from "./Node";
-import CircularLinkedList from "./circular-linked-list";
-
 class DoubleCircularLinkedList {
     constructor() {
         this.head = null;
@@ -172,4 +169,4 @@ class DoubleCircularLinkedList {
     }
 }
 
-export default CircularLinkedList
+

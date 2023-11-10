@@ -1,5 +1,3 @@
-import Node from "./Node";
-
 class Queue { //Clase kiwi
     constructor() {
       this.first = null;
@@ -43,4 +41,3 @@ class Queue { //Clase kiwi
     }
 }
 
-export default Queue;

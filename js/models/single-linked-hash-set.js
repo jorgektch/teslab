@@ -1,5 +1,3 @@
-import Node from "./Node";
-
 class LinkedHashSet {
     constructor() {
         this.head = null;
@@ -137,5 +135,3 @@ class LinkedHashSet {
         return result;
     }
 }
-
-export default LinkedHashSet

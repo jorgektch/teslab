@@ -1,5 +1,3 @@
-import Node from "./Node";
-
 class LinkedList {
     constructor() {
       this.first = null;
@@ -259,5 +257,3 @@ class LinkedList {
       return max;
     }
 }
-
-export default LinkedList;

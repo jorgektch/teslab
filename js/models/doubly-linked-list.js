@@ -1,5 +1,3 @@
-import Node from "./Node";
-
 class DoubleLinkedList {
     constructor() {
       this.first = null;
@@ -244,5 +242,3 @@ class DoubleLinkedList {
       return this.last ? this.last.getElement() : -1;
     }
 }
-
-export default DoubleLinkedList;
