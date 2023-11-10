@@ -2,10 +2,10 @@
 
 function principal(event) {
     //event.preventDefault();
+    event.preventDefault();
     const entrada = document.getElementById('entrada').value;
     const salida = procesar(entrada);
     document.getElementById("resultado").innerHTML = salida;
-    event.preventDefault();
 }
 
 function procesar(entrada) {
