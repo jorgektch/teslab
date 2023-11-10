@@ -93,7 +93,7 @@ class ExpressionEvaluator {
             if (this.isLetterOrDigit(char)) {
                 postfix += char;
             } else if (char === '(') {
-                stack.push(char);
+                stack.insert(char);
             } else if (char === ')') {
                 while (!stack.isEmpty() && stack.peek() !== '(') {
                     postfix += stack.pop();
@@ -103,7 +103,7 @@ class ExpressionEvaluator {
                 while (!stack.isEmpty() && this.getPrecedence(char) <= this.getPrecedence(stack.peek())) {
                     postfix += stack.pop();
                 }
-                stack.push(char);
+                stack.insert(char);
             }
         }
     
