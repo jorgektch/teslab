@@ -159,7 +159,7 @@ class ExpressionEvaluator {
         return stack.pop();
     }
     showBooleanTable(expression) {
-        const x = this.changeOperators(expression);
+        const x = this.changeOperators(expression.toUpperCase());
         const prefix = this.infixToPrefix(x);
         const operands = this.getOperands(x);
         const matrix = this.getCombinationsBoolean(operands.length);
