@@ -10,7 +10,7 @@ function principal(event) {
 
 function procesar(entrada) {
     // Set de expresiones
-    let comandos = ["evaluate", "solve", "simplify"];
+    let comandos = ["evaluate", "solve", "simplify", "boolean table"];
 
     for(let i=0; i<comandos.length; ++i){
         let comando = comandos[i];
@@ -21,6 +21,7 @@ function procesar(entrada) {
             if(comando == comandos[0]) return "Resultado: "+evaluate(expresion);
             else if(comando == comandos[1]) return "Resultado: "+solve(expresion);
             else if(comando == comandos[2]) return "Resultado: "+simplify(expresion);
+            else if(comando == comandos[3]) return "Resultado: "+ new ExpressionEvaluator().showBooleanTable(expresion);
             else return "¡Error! No se puede procesar la expresión!"
         }
         

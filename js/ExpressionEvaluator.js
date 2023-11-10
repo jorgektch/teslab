@@ -171,7 +171,7 @@ class ExpressionEvaluator {
             matrix[i].push(this.evaluatePrefix(ex) ? 1 : 0);
         }
 
-        return matrix;
+        return this.getFormatTable(matrix);
     }
     replaceAllString(str, a, b) {
         let x = ""
@@ -211,5 +211,17 @@ class ExpressionEvaluator {
            num = parseInt(num/2);     
         }
         return matrix;
+    }
+    getFormatTable(matrix) {
+        let x = "<table>";
+        for (let i = 0; i < matrix.length; i++) {
+            x += "<tr>";
+            for (let j = 0; j < matrix[i].length; j++) {
+                x += `<td>${matrix[i][j]}</td>`;
+            }
+            x += '</tr>'
+        }
+        x += '</table>';
+        return x;
     }
 }
