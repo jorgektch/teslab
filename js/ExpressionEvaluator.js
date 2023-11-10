@@ -172,7 +172,7 @@ class ExpressionEvaluator {
             matrix[i].push(this.evaluatePrefix(ex) ? 1 : 0);
         }
 
-        return this.getFormatTable(matrix);
+        return this.getFormatTable(matrix, operands);
     }
     changeOperators(expression) {
         let x = this.replaceAllString(expression, 'NAND', '↑');
@@ -221,8 +221,12 @@ class ExpressionEvaluator {
         }
         return matrix;
     }
-    getFormatTable(matrix) {
-        let x = "<table>";
+    getFormatTable(matrix, operands) {
+        let x = "<table><thead><tr>";
+        for (let i = 0; i < operands.length; i++) {
+            x += `<td>${operands[i].toLowerCase()}</td>`;
+        }
+        x += '</tr></thead><tbody>';
         for (let i = 0; i < matrix.length; i++) {
             x += "<tr>";
             for (let j = 0; j < matrix[i].length; j++) {
@@ -230,7 +234,7 @@ class ExpressionEvaluator {
             }
             x += '</tr>'
         }
-        x += '</table>';
+        x += '</tbody></table>';
         return x;
     }
 }
