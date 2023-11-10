@@ -159,8 +159,9 @@ class ExpressionEvaluator {
         return stack.pop();
     }
     showBooleanTable(expression) {
-        const prefix = this.infixToPrefix(expression);
-        const operands = this.getOperands(expression);
+        const x = this.changeOperators(expression);
+        const prefix = this.infixToPrefix(x);
+        const operands = this.getOperands(x);
         const matrix = this.getCombinationsBoolean(operands.length);
 
         for (let i = 0; i < matrix.length; i++) {
@@ -173,16 +174,24 @@ class ExpressionEvaluator {
 
         return this.getFormatTable(matrix);
     }
-    replaceAllString(str, a, b) {
-        let x = ""
-        for (let i = 0; i < str.length; i++) {
-            if (str.charAt(i) == a) {
-                x += b;
-            } else {
-                x += str.charAt(i);
-            }
-        }
+    changeOperators(expression) {
+        let x = this.replaceAllString(expression, 'NAND', '↑');
+        x = this.replaceAllString(x, 'XOR', '⊕');
+        x = this.replaceAllString(x, 'XNOR', '⊙');
+        x = this.replaceAllString(x, 'NOR', '↓');
+        x = this.replaceAllString(x, 'OR', '∨');
+        x = this.replaceAllString(x, 'AND', '∧');
+        x = this.replaceAllString(x, 'NOT', '¬');
+        x = this.replaceAllString(x, 'IMPLIES', '→');
+        x = this.replaceAllString(x, ' ', '');
         return x;
+    }
+    replaceAllString(inputString, search, replacement) {
+        const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        
+        const regex = new RegExp(escapedSearch, 'g');
+        
+        return inputString.replace(regex, replacement);
     }
     /**
      * Given a number of variables (n), the function returns the logical table of n variables
