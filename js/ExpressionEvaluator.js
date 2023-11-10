@@ -224,7 +224,7 @@ class ExpressionEvaluator {
         return matrix;
     }
     getFormatTable(matrix, operands) {
-        let x = "<table><thead><tr>";
+        let x = "<table class='tablita'><thead><tr>";
         for (let i = 0; i < operands.length; i++) {
             x += `<td>${operands[i].toLowerCase()}</td>`;
         }

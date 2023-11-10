@@ -81,12 +81,19 @@ ul {
 }
 
 #formulario {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     gap: 25px;
 }
 
+#formulario label {
+    width: 100%;
+}
+
 #formulario img {
-    width: 75%;
+    width: 50%;
 }
 
 h1 {
@@ -106,7 +113,8 @@ h1 {
 #entrada {
     width: 100%;
     border: none;
-    border: 1px solid #f96932;
+    border: 1px solid #003050;
+    outline: 3px solid #4bb7ff;
     border-radius: 5px;
     box-sizing: border-box;
     padding: 8px;
@@ -123,10 +131,11 @@ h1 {
     right: 0px;
     transition: color 0.3s ease;
     cursor: pointer;
+    fill: #0c95f1;
 }
 
 #container-input svg:hover {
-    color: #2a1007;
+    color: #05104d;
 }
 
 button {
