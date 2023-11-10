@@ -228,6 +228,7 @@ class ExpressionEvaluator {
         for (let i = 0; i < operands.length; i++) {
             x += `<td>${operands[i].toLowerCase()}</td>`;
         }
+        x += `<td>R</td>`
         x += '</tr></thead><tbody>';
         for (let i = 0; i < matrix.length; i++) {
             x += "<tr>";
