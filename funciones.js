@@ -1,6 +1,5 @@
-const algebra = require('node_modules/algebra.js'); 
-
-function simplifyExp(expresion) {   
+function simplifyExp(expresion) { 
+    const algebra = require('node_modules/algebra.js');  
     const expr = algebra.parse(expresion);
     const simplifyExpression = expr.simplify();
     const sample = simplifyExpression.toString();
