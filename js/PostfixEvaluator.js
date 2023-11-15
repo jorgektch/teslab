@@ -22,7 +22,7 @@ class Stack {
     }
 }
 
-class InfixToPostfixConverter {
+class InfixToPrefixConverter {
     constructor() {
         this.operators = {
             '^': 3,
@@ -83,5 +83,42 @@ class InfixToPostfixConverter {
         }
 
         return postfix.trim();
+    }
+
+    evaluatePostfix(postfixExpression) {
+        const stack = new Stack();
+        const tokens = postfixExpression.split(" ");
+    
+        for (let i = 0; i < tokens.length; i++) {
+            const token = tokens[i];
+    
+            if (/^[a-zA-Z0-9]+$/.test(token)) {
+                // Es un operando, lo apilamos
+                stack.insert(parseFloat(token));
+            } else if ("+-*/^".includes(token)) {
+                // Es un operador, realizamos la operación correspondiente
+                const operand2 = stack.pop();
+                const operand1 = stack.pop();
+    
+                switch (token) {
+                    case '+':
+                        stack.insert(operand1 + operand2);
+                        break;
+                    case '-':
+                        stack.insert(operand1 - operand2);
+                        break;
+                    case '*':
+                        stack.insert(operand1 * operand2);
+                        break;
+                    case '/':
+                        stack.insert(operand1 / operand2);
+                        break;
+                    case '^':
+                        stack.insert(Math.pow(operand1, operand2));
+                        break;
+                }
+            }
+        }
+        return stack.pop();
     }
 }

@@ -48,8 +48,8 @@ function getPrecedence(operator) {
 
 function evaluate(expression) {
     const ex = changeOperators(expression.toUpperCase(), ' ', '');
-    const prefix = infixToPrefix(ex);
-    return evaluatePrefix(prefix);
+    const prefix = infixToPostfix(ex);
+    return evaluatePostfix(prefix);
 }
 function isOperator(char) {
     return '∧∨↑↓⊕⊙→¬()'.includes(char);
@@ -76,6 +76,42 @@ function evaluatePrefix(prefix) {
     return stack.pop();
 }
 
+function evaluatePostfix(postfix) {
+    const stack = new Stack();
+    const tokens = postfix.split(" ");
+
+    for (let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+
+        if (/^[a-zA-Z0-9]+$/.test(token)) {
+            
+            stack.insert(parseFloat(token));
+        } else if ("∧∨↑↓⊕⊙→+-*/^".includes(token)) {
+            const operand2 = stack.pop();
+            const operand1 = stack.pop();
+
+            switch (token) {
+                case '+':
+                    stack.insert(operand1 + operand2);
+                    break;
+                case '-':
+                    stack.insert(operand1 - operand2);
+                    break;
+                case '*':
+                    stack.insert(operand1 * operand2);
+                    break;
+                case '/':
+                    stack.insert(operand1 / operand2);
+                    break;
+                case '^':
+                    stack.insert(Math.pow(operand1, operand2));
+                    break;
+            }
+        }
+    }
+    return stack.pop();
+}
+
 function replaceAllString(inputString, search, replacement) {
     const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const regex = new RegExp(escapedSearch, 'g');    
@@ -84,7 +120,7 @@ function replaceAllString(inputString, search, replacement) {
 function isLetterOrDigit(char) {
     return /\w/.test(char);
 }
-function infixToPrefix(x) {
+function infixToPrefix(x) { //Only one digit
     const infix = changeOperators(x.toUpperCase());
     const stack = new Stack();
     let prefix = "";
@@ -120,10 +156,10 @@ function infixToPrefix(x) {
     return reverseString(prefix);
 }
 
-function infixToPostfix(expression) {
+function infixToPostfix(expression) { //One or more digits
     const stack = new Stack();
     let postfix = "";
-
+ 
     for (let i = 0; i < expression.length; i++) {
         const char = expression.charAt(i);
 

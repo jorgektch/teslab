@@ -3,6 +3,9 @@ class Node {
         this._data = data;
         this._next = null;
         this._prev = null;
+        this._left = null;
+        this._right = null;
+        this._middle = null;
     }
     /**
      * @param {Node} next
