@@ -64,7 +64,7 @@ function evaluatePrefix(prefix) {
     for (let i = prefix.length - 1; i >= 0; i--) {
         const char = prefix[i];
         
-        if ('∧∨↑↓⊕⊙→+-*/'.includes(char)) {
+        if ('∧∨↑↓⊕⊙→+¬-*/'.includes(char)) {
             const operand1 = stack.pop();
             const operand2 = stack.pop();
             const result = operate(char, Number(operand1), Number(operand2));
@@ -90,7 +90,7 @@ function evaluatePostfix(postfix) {
         if (/^[a-zA-Z0-9]+$/.test(token)) {
             
             stack.insert(parseFloat(token));
-        } else if ("∧∨↑↓⊕⊙→+-*/^".includes(token)) {
+        } else if ("∧∨↑↓⊕⊙→+¬-*/^".includes(token)) {
             const operand2 = stack.pop();
             const operand1 = stack.pop();
 
