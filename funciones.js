@@ -1,5 +1,10 @@
-function simplify(expresion) {
-    return expresion[0];
+const algebra = require('node_modules/algebra.js'); 
+
+function simplifyExp(expresion) {   
+    const expr = algebra.parse(expresion);
+    const simplifyExpression = expr.simplify();
+    const sample = simplifyExpression.toString();
+    return sample;
 }
 
 function solve(expresion) {

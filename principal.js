@@ -20,7 +20,7 @@ function procesar(entrada) {
             let expresion = entrada.substring(comando.length + 1,entrada.length);
             if(comando == comandos[0]) return "Resultado: "+evaluate(expresion);
             else if(comando == comandos[1]) return "Resultado: "+solve(expresion);
-            else if(comando == comandos[2]) return "Resultado: "+simplify(expresion);
+            else if(comando == comandos[2]) return "Resultado: "+simplifyExp(expresion);
             else if(comando == comandos[3]) return "Resultado: "+ showBooleanTable(expresion);
             else if(comando == comandos[4]) return "Resultado: "+ infixToPrefix(expresion);
             else if(comando == comandos[5]) return "Resultado: "+ infixToPostfix(expresion);
