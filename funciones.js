@@ -138,6 +138,7 @@ function infixToPrefix(x) { //Only one digit
         } else if (char === '(') {
             while (!stack.isEmpty() && stack.peek() != ')') {
                 prefix += stack.pop();
+                prefix += " ";
             }
             stack.pop();
         } else {
@@ -146,6 +147,7 @@ function infixToPrefix(x) { //Only one digit
                 stack.insert(char);
             }else{
                 prefix += stack.pop();
+                prefix += " ";
                 stack.insert(char);                
             }  
             
@@ -156,6 +158,7 @@ function infixToPrefix(x) { //Only one digit
     }
     while (!stack.isEmpty()) {
         prefix += stack.pop();
+        prefix += " ";
     }
     return reverseString(prefix);
 }
@@ -289,4 +292,75 @@ function getFormatTable(matrix, operands) {
     }
     x += '</tbody></table>';
     return x;
+}
+
+function factorial(n){
+    let num = parseInt(n);
+
+    if(num === 0){
+        return 1;
+    
+    }else{
+        return num*factorial(num-1);
+    }
+
+}
+
+//combinations, permutations and variations:
+function combinatorics(expresion){
+    const terms = expresion.split(',');
+
+    if (terms.length === 2) {
+        const num1 = terms[0].trim();
+        const num2 = terms[1].trim();    
+        let n = parseInt(num1);
+        let k = parseInt(num2);
+        return (factorial(n)/(factorial(k)*(factorial(n-k))));
+    }else{
+        return "Syntax Error";
+    }
+
+}
+
+function combinatoricsRepetition(expresion){
+    const terms = expresion.split(',');
+
+    if (terms.length === 2) {
+        const num1 = terms[0].trim();
+        const num2 = terms[1].trim();    
+        let n = parseInt(num1);
+        let r = parseInt(num2);
+        return (factorial(n+r-1)/(factorial(r)*(factorial(n-1))));
+    }else{
+        return "Syntax Error";
+    }
+    
+}
+
+function variation(expresion){
+    const terms = expresion.split(',');
+
+    if (terms.length === 2) {
+        const num1 = terms[0].trim();
+        const num2 = terms[1].trim();    
+        let n = parseInt(num1);
+        let r = parseInt(num2);
+        return (factorial(n)/(factorial(n-r)));
+    }else{
+        return "Syntax Error";
+    }
+}
+
+function variationRepetition(expresion){
+    const terms = expresion.split(',');
+
+    if (terms.length === 2) {
+        const num1 = terms[0].trim();
+        const num2 = terms[1].trim();    
+        let n = parseInt(num1);
+        let r = parseInt(num2);
+        return (Math.pow(n,r));
+    }else{
+        return "Syntax Error";
+    }
 }

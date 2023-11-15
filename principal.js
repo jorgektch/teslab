@@ -10,7 +10,8 @@ function principal(event) {
 
 function procesar(entrada) {
     // Set de expresiones
-    let comandos = ["evaluate", "solve", "simplify", "boolean table", "prefix", "postfix"];
+    let comandos = ["evaluate", "solve", "simplify", "boolean table", "prefix", "postfix", "factorial", "combinatorics",
+                    "combinatorics repetition", "variation", "variation repetition"];
 
     for(let i=0; i<comandos.length; ++i){
         let comando = comandos[i];
@@ -24,6 +25,12 @@ function procesar(entrada) {
             else if(comando == comandos[3]) return "Resultado: "+ showBooleanTable(expresion);
             else if(comando == comandos[4]) return "Resultado: "+ infixToPrefix(expresion);
             else if(comando == comandos[5]) return "Resultado: "+ infixToPostfix(expresion);
+            else if(comando == comandos[6]) return "Resltado: "+ factorial(expresion);
+            else if(comando == comandos[7]) return "Resultado: "+ combinatorics(expresion);
+            else if(comando == comandos[8]) return "Resultado: "+ combinatoricsRepetition(expresion);
+            else if(comando == comandos[9]) return "Resultado: "+ variation(expresion);
+            else if(comando == comandos[10]) return "Resultado: "+ variationRepetition(expresion);
+            
             else return "¡Error! No se puede procesar la expresión!"
         }
         
