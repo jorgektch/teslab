@@ -315,7 +315,12 @@ function combinatorics(expresion){
         const num2 = terms[1].trim();    
         let n = parseInt(num1);
         let k = parseInt(num2);
-        return (factorial(n)/(factorial(k)*(factorial(n-k))));
+
+        if(k>=n){
+            return 0;
+        }
+
+        return  parseInt(factorial(n)/(factorial(k)*(factorial(n-k))));
     }else{
         return "Syntax Error";
     }
@@ -330,7 +335,12 @@ function combinatoricsRepetition(expresion){
         const num2 = terms[1].trim();    
         let n = parseInt(num1);
         let r = parseInt(num2);
-        return (factorial(n+r-1)/(factorial(r)*(factorial(n-1))));
+
+        if(n <= 1){
+            return 0;
+        }
+
+        return  parseInt(factorial(n+r-1)/(factorial(r)*(factorial(n-1))));
     }else{
         return "Syntax Error";
     }
@@ -345,7 +355,12 @@ function variation(expresion){
         const num2 = terms[1].trim();    
         let n = parseInt(num1);
         let r = parseInt(num2);
-        return (factorial(n)/(factorial(n-r)));
+        
+        if(r>=n){
+            return 0;
+        }
+
+        return parseInt(factorial(n)/(factorial(n-r)));
     }else{
         return "Syntax Error";
     }
@@ -359,7 +374,7 @@ function variationRepetition(expresion){
         const num2 = terms[1].trim();    
         let n = parseInt(num1);
         let r = parseInt(num2);
-        return (Math.pow(n,r));
+        return  (Math.pow(n,r));
     }else{
         return "Syntax Error";
     }
