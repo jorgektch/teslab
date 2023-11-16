@@ -379,3 +379,4 @@ function variationRepetition(expresion){
         return "Syntax Error";
     }
 }
+
