@@ -10,15 +10,17 @@ function principal(event) {
 
 function procesar(entrada) {
     // Set de expresiones
-    let comandos = ["evaluate", "solve", "simplify", "boolean table", "prefix", "postfix", "factorial", "combinatorics",
-        "combinatorics repetition", "variation", "variation repetition"];
+    let comandos = ["evaluate", "solve", "simplify", "boolean table", "prefix", "postfix", "factorial",
+        "combinatorics repetition", "variation repetition", "combinatorics", "variation"];
 
     for (let i = 0; i < comandos.length; ++i) {
         let comando = comandos[i];
         let posicion = entrada.search(comando);
 
         if (posicion != -1) {
+            console.log(comando)
             let expresion = entrada.substring(comando.length + 1, entrada.length);
+            console.log(expresion)
             if (comando == comandos[0]) return "Resultado: " + evaluate(expresion);
             else if (comando == comandos[1]) return "Resultado: " + solve(expresion);
             else if (comando == comandos[2]) return "Resultado: " + simplifyExp(expresion);
@@ -26,10 +28,10 @@ function procesar(entrada) {
             else if (comando == comandos[4]) return "Resultado: " + infixToPrefix(expresion);
             else if (comando == comandos[5]) return "Resultado: " + infixToPostfix(expresion);
             else if (comando == comandos[6]) return "Resltado: " + factorial(expresion);
-            else if (comando == comandos[7]) return "Resultado: " + combinatorics(expresion);
-            else if (comando == comandos[8]) return "Resultado: " + combinatoricsRepetition(expresion);
-            else if (comando == comandos[9]) return "Resultado: " + variation(expresion);
-            else if (comando == comandos[10]) return "Resultado: " + variationRepetition(expresion);
+            else if (comando == comandos[7]) return "Resultado: " + combinatoricsRepetition(expresion);
+            else if (comando == comandos[8]) return "Resultado: " + variationRepetition(expresion);
+            else if (comando == comandos[9]) return "Resultado: " + combinatorics(expresion);
+            else if (comando == comandos[10]) return "Resultado: " + variation(expresion);
 
             else return "¡Error! No se puede procesar la expresión!"
         }
