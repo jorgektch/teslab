@@ -56,7 +56,7 @@ function evaluate(expression) {
     return evaluatePostfix(prefix);
 }
 function isOperator(char) {
-    return '∧∨↑↓⊕⊙→¬()+-*/'.includes(char);
+    return '∧∨↑↓⊕⊙→¬()+-*/^'.includes(char);
 }
 
 function evaluatePrefix(prefix) {
