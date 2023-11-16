@@ -21,6 +21,7 @@ function showBooleanTable(expression) {
         for (let j = 0; j < operands.length; j++) {
             ex = this.replaceAllString(ex, operands[j], matrix[i][j]);
         }
+        
         matrix[i].push(this.evaluatePrefix(ex) ? 1 : 0);
     }
 
@@ -55,8 +56,9 @@ function evaluate(expression) {
     const prefix = infixToPostfix(ex);
     return evaluatePostfix(prefix);
 }
+
 function isOperator(char) {
-    return '∧∨↑↓⊕⊙→¬()+-*/^'.includes(char);
+    return '∧∨↑↓⊕⊙→¬()[]+-*/^'.includes(char);
 }
 
 function evaluatePrefix(prefix) {
@@ -64,7 +66,7 @@ function evaluatePrefix(prefix) {
     for (let i = prefix.length - 1; i >= 0; i--) {
         const char = prefix[i];
         
-        if ('∧∨↑↓⊕⊙→+¬-*/'.includes(char)) {
+        if ('∧∨↑↓⊕⊙→+-*/'.includes(char)) {
             const operand1 = stack.pop();
             const operand2 = stack.pop();
             const result = operate(char, Number(operand1), Number(operand2));
@@ -211,9 +213,7 @@ function getOperands(expression) {
     }
     return operands;
 }
-function isOperator(char) {
-    return '∧∨↑↓⊕⊙→¬()[]+-*/^'.includes(char);
-}
+
 function reverseString(str) {
     let x = "";
     for (let i = str.length-1; i >= 0; i--) {
