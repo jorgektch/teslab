@@ -1,9 +1,10 @@
 function simplifyExp(expresion) { 
-    const algebra = require('node_modules/algebra.js');  
+    /* const algebra = require('node_modules/algebra.js');  
     const expr = algebra.parse(expresion);
     const simplifyExpression = expr.simplify();
     const sample = simplifyExpression.toString();
-    return sample;
+    return sample; */
+    return 0
 }
 
 function solve(expresion) {
@@ -12,7 +13,7 @@ function solve(expresion) {
 
 function showBooleanTable(expression) {
     const x = this.changeOperators(expression.toUpperCase());
-    const prefix = this.infixToPrefix(x);
+    const prefix = this.infixToPrefixBoolean(x);
     const operands = this.getOperands(x);
     const matrix = this.getCombinationsBoolean(operands.length);
 
@@ -164,7 +165,41 @@ function infixToPrefix(x) { //Only one digit
     }
     return reverseString(prefix);
 }
-
+function infixToPrefixBoolean(x) { //Only one digit
+    const infix = changeOperators(x.toUpperCase());
+    const stack = new Stack();
+    let prefix = "";
+    const infixR = reverseString(infix);
+    for (let i = 0; i < infixR.length; i++) {
+        const char = infixR.charAt(i);
+        if (isLetterOrDigit(char)) {
+            prefix += char;
+        } else if (char === ')') {
+            stack.insert(char);
+        } else if (char === '(') {
+            while (!stack.isEmpty() && stack.peek() != ')') {
+                prefix += stack.pop();
+            }
+            stack.pop();
+        } else {
+          if(!stack.isEmpty()){
+            if(getPrecedence(char) >= getPrecedence(stack.peek())){
+                stack.insert(char);
+            }else{
+                prefix += stack.pop();
+                stack.insert(char);                
+            }  
+            
+          }else{
+              stack.insert(char);
+          }
+        }
+    }
+    while (!stack.isEmpty()) {
+        prefix += stack.pop();
+    }
+    return reverseString(prefix);
+}
 function infixToPostfix(expression) { //One or more digits
     const stack = new Stack();
     let postfix = "";
@@ -297,13 +332,19 @@ function getFormatTable(matrix, operands) {
 function factorial(n){
     let num = parseInt(n);
 
-    if(num === 0){
+
+    /* if(num === 0){
         return 1;
     
     }else{
         return num*factorial(num-1);
-    }
+    } */
 
+    let f = 1;
+    for (let i = 1; i <= n; i++) {
+        f*=i;
+    }
+    return f;
 }
 
 //combinations, permutations and variations:
@@ -329,22 +370,23 @@ function combinatorics(expresion){
 
 function combinatoricsRepetition(expresion){
     const terms = expresion.split(',');
+    console.log("dfsdf")
 
     if (terms.length === 2) {
         const num1 = terms[0].trim();
         const num2 = terms[1].trim();    
         let n = parseInt(num1);
         let r = parseInt(num2);
-
-        if(n <= 1){
+        console.log(n)
+        if(n < 1){
+            console.log(r)
             return 0;
         }
 
-        return  parseInt(factorial(n+r-1)/(factorial(r)*(factorial(n-1))));
+        return  Number(factorial(n+r-1)/(factorial(r)*(factorial(n-1))));
     }else{
         return "Syntax Error";
     }
-    
 }
 
 function variation(expresion){
