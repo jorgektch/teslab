@@ -332,19 +332,12 @@ function getFormatTable(matrix, operands) {
 function factorial(n){
     let num = parseInt(n);
 
-
-    /* if(num === 0){
+    if(num === 0){
         return 1;
     
     }else{
         return num*factorial(num-1);
-    } */
-
-    let f = 1;
-    for (let i = 1; i <= n; i++) {
-        f*=i;
     }
-    return f;
 }
 
 //combinations, permutations and variations:
@@ -377,9 +370,7 @@ function combinatoricsRepetition(expresion){
         const num2 = terms[1].trim();    
         let n = parseInt(num1);
         let r = parseInt(num2);
-        console.log(n)
         if(n < 1){
-            console.log(r)
             return 0;
         }
 

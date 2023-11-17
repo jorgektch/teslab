@@ -18,9 +18,7 @@ function procesar(entrada) {
         let posicion = entrada.search(comando);
 
         if (posicion != -1) {
-            console.log(comando)
             let expresion = entrada.substring(comando.length + 1, entrada.length);
-            console.log(expresion)
             if (comando == comandos[0]) return "Resultado: " + evaluate(expresion);
             else if (comando == comandos[1]) return "Resultado: " + solve(expresion);
             else if (comando == comandos[2]) return "Resultado: " + simplifyExp(expresion);
