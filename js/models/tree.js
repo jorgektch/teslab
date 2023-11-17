@@ -69,15 +69,15 @@ class Tree {
             }
         }
     }
-    
+
     getLastNode() {
         if (this.root === null) {
             return null;
         }
         
         let current = this.root;
-        while (current.right !== null) {
-            current = current.right;
+        while (current.getRight !== null) {
+            current = current.getRight;
         }
         
         return current;
