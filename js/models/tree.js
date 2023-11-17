@@ -76,8 +76,8 @@ class Tree {
         }
         
         let current = this.root;
-        while (current.getRight !== null) {
-            current = current.getRight;
+        while (current.getRight() !== null) {
+            current = current.getRight();
         }
         
         return current;
