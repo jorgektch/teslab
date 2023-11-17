@@ -312,7 +312,7 @@ function getCombinationsBoolean(n) {
 }
 
 function getFormatTable(matrix, operands) {
-    let x = "<table><thead><tr>";
+    let x = "<table class='table-boolean'><thead><tr>";
     for (let i = 0; i < operands.length; i++) {
         x += `<td>${operands[i].toLowerCase()}</td>`;
     }
