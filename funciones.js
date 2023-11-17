@@ -422,3 +422,14 @@ function variationRepetition(expresion){
     }
 }
 
+function heapSort(...numbers) {
+    const heapTree = new Tree();
+    numbers.forEach(num => heapTree.insert(num));
+    
+    const sorted = [];
+    while (heapTree.heap.length > 0) {
+        sorted.push(heapTree.remove());
+    }
+
+    return sorted;
+}
