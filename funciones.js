@@ -422,14 +422,21 @@ function variationRepetition(expresion){
     }
 }
 
-function heapSort(...numbers) {
-    const heapTree = new Tree();
-    numbers.forEach(num => heapTree.insert(num));
-    
-    const sorted = [];
-    while (heapTree.heap.length > 0) {
-        sorted.push(heapTree.remove());
+function heapSort(inputString) {
+    const numbers = inputString.split(',').map(Number);
+    const tree = new Tree();
+
+    for (const num of numbers) {
+        tree.insert(num);
     }
 
-    return sorted;
+    const sortedNumbers = [];
+    while (tree.size > 0) {
+        const minValue = tree.remove();
+        sortedNumbers.push(minValue);
+    }
+
+    const sortedString = sortedNumbers.join(',');
+
+    return sortedString;
 }

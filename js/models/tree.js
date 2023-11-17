@@ -69,4 +69,23 @@ class Tree {
             }
         }
     }
+    
+    getLastNode() {
+        if (this.root === null) {
+            return null;
+        }
+        
+        let current = this.root;
+        while (current.right !== null) {
+            current = current.right;
+        }
+        
+        return current;
+    }
+
+    swap(node1, node2) {
+        const temp = node1.value;
+        node1.value = node2.value;
+        node2.value = temp;
+    }
 }
