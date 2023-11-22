@@ -1,4 +1,4 @@
-function simplifyExp(expresion) { 
+function simplifyExp(expresion) {
     /* const algebra = require('node_modules/algebra.js');  
     const expr = algebra.parse(expresion);
     const simplifyExpression = expr.simplify();
@@ -22,7 +22,7 @@ function showBooleanTable(expression) {
         for (let j = 0; j < operands.length; j++) {
             ex = this.replaceAllString(ex, operands[j], matrix[i][j]);
         }
-        
+
         matrix[i].push(this.evaluatePrefix(ex) ? 1 : 0);
     }
 
@@ -31,16 +31,16 @@ function showBooleanTable(expression) {
 function getPrecedence(operator) {
     switch (operator) {
         // BOOLEAN
-        case '¬':  return 3; // not
+        case '¬': return 3; // not
         case '∧':
-        case '∨':  return 2;
+        case '∨': return 2;
         case '↑': //nand
         case '↓': //nor
         case '⊕': //xor
         case '⊙': //xnor
         case '→': //implica
             return 1;
-        
+
         // ARITMETHIC
         case '^': return 3;
         case '*': case '/':
@@ -66,7 +66,7 @@ function evaluatePrefix(prefix) {
     const stack = new Stack();
     for (let i = prefix.length - 1; i >= 0; i--) {
         const char = prefix[i];
-        
+
         if ('∧∨↑↓⊕⊙→+-*/'.includes(char)) {
             const operand1 = stack.pop();
             const operand2 = stack.pop();
@@ -75,7 +75,7 @@ function evaluatePrefix(prefix) {
         } else if (char === '¬') {
             const n = stack.pop();
             stack.insert(!Number(n));
-        } 
+        }
         else {
             stack.insert(char);
         }
@@ -91,7 +91,7 @@ function evaluatePostfix(postfix) {
         const token = tokens[i];
 
         if (/^[a-zA-Z0-9]+$/.test(token)) {
-            
+
             stack.insert(parseFloat(token));
         } else if ("∧∨↑↓⊕⊙→+¬-*/^".includes(token)) {
             const operand2 = stack.pop();
@@ -121,7 +121,7 @@ function evaluatePostfix(postfix) {
 
 function replaceAllString(inputString, search, replacement) {
     const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(escapedSearch, 'g');    
+    const regex = new RegExp(escapedSearch, 'g');
     return inputString.replace(regex, replacement);
 }
 function isLetterOrDigit(char) {
@@ -145,18 +145,18 @@ function infixToPrefix(x) { //Only one digit
             }
             stack.pop();
         } else {
-          if(!stack.isEmpty()){
-            if(getPrecedence(char) >= getPrecedence(stack.peek())){
+            if (!stack.isEmpty()) {
+                if (getPrecedence(char) >= getPrecedence(stack.peek())) {
+                    stack.insert(char);
+                } else {
+                    prefix += stack.pop();
+                    prefix += " ";
+                    stack.insert(char);
+                }
+
+            } else {
                 stack.insert(char);
-            }else{
-                prefix += stack.pop();
-                prefix += " ";
-                stack.insert(char);                
-            }  
-            
-          }else{
-              stack.insert(char);
-          }
+            }
         }
     }
     while (!stack.isEmpty()) {
@@ -182,17 +182,17 @@ function infixToPrefixBoolean(x) { //Only one digit
             }
             stack.pop();
         } else {
-          if(!stack.isEmpty()){
-            if(getPrecedence(char) >= getPrecedence(stack.peek())){
+            if (!stack.isEmpty()) {
+                if (getPrecedence(char) >= getPrecedence(stack.peek())) {
+                    stack.insert(char);
+                } else {
+                    prefix += stack.pop();
+                    stack.insert(char);
+                }
+
+            } else {
                 stack.insert(char);
-            }else{
-                prefix += stack.pop();
-                stack.insert(char);                
-            }  
-            
-          }else{
-              stack.insert(char);
-          }
+            }
         }
     }
     while (!stack.isEmpty()) {
@@ -203,7 +203,7 @@ function infixToPrefixBoolean(x) { //Only one digit
 function infixToPostfix(expression) { //One or more digits
     const stack = new Stack();
     let postfix = "";
- 
+
     for (let i = 0; i < expression.length; i++) {
         const char = expression.charAt(i);
 
@@ -251,8 +251,8 @@ function getOperands(expression) {
 
 function reverseString(str) {
     let x = "";
-    for (let i = str.length-1; i >= 0; i--) {
-      x += str.charAt(i);
+    for (let i = str.length - 1; i >= 0; i--) {
+        x += str.charAt(i);
     }
     return x;
 }
@@ -270,12 +270,12 @@ function changeOperators(expression) {
     return x;
 }
 
-function operate(operator, operand1, operand2){
+function operate(operator, operand1, operand2) {
     switch (operator) {
-        case '∧': return operand1&&operand2;
-        case '∨': return operand1||operand2;
-        case '↑': return !(operand1&&operand2);
-        case '↓': return !(operand1||operand2);
+        case '∧': return operand1 && operand2;
+        case '∨': return operand1 || operand2;
+        case '↑': return !(operand1 && operand2);
+        case '↓': return !(operand1 || operand2);
         case '⊕': return (operand1 && !operand2) || (operand2 && !operand1);
         case '⊙': return !((operand1 && !operand2) || (operand2 && !operand1));
         case '→': return (!operand1 || operand2);
@@ -289,7 +289,7 @@ function operate(operator, operand1, operand2){
 
 function getCombinationsBoolean(n) {
     const matrix = new Array(Math.pow(2, n));
-    let num = parseInt(Math.pow(2,n)/2);
+    let num = parseInt(Math.pow(2, n) / 2);
     for (let i = 0; i < matrix.length; i++) {
         matrix[i] = new Array(n);
     }
@@ -297,16 +297,16 @@ function getCombinationsBoolean(n) {
         let cont = 0;
         let x = 0
         for (let j = 0; j < Math.pow(2, n); j++) {
-            if (cont<num) {
+            if (cont < num) {
                 matrix[j][i] = x;
                 cont++;
             }
             if (cont === num) {
                 cont = 0;
-                x = x==0 ? 1 : 0;
+                x = x == 0 ? 1 : 0;
             }
-        }      
-       num = parseInt(num/2);     
+        }
+        num = parseInt(num / 2);
     }
     return matrix;
 }
@@ -329,7 +329,7 @@ function getFormatTable(matrix, operands) {
     return x;
 }
 
-function factorial(n){
+function factorial(n) {
     let num = parseInt(n);
 
 
@@ -342,142 +342,169 @@ function factorial(n){
 
     let f = 1;
     for (let i = 1; i <= n; i++) {
-        f*=i;
+        f *= i;
     }
     return f;
 }
 
 //combinations, permutations and variations:
-function combinatorics(expresion){
+function combinatorics(expresion) {
     const terms = expresion.split(',');
 
     if (terms.length === 2) {
         const num1 = terms[0].trim();
-        const num2 = terms[1].trim();    
+        const num2 = terms[1].trim();
         let n = parseInt(num1);
         let k = parseInt(num2);
 
-        if(k>=n){
+        if (k >= n) {
             return 0;
         }
 
-        return  parseInt(factorial(n)/(factorial(k)*(factorial(n-k))));
-    }else{
+        return parseInt(factorial(n) / (factorial(k) * (factorial(n - k))));
+    } else {
         return "Syntax Error";
     }
 
 }
 
-function combinatoricsRepetition(expresion){
+function combinatoricsRepetition(expresion) {
     const terms = expresion.split(',');
     console.log("dfsdf")
 
     if (terms.length === 2) {
         const num1 = terms[0].trim();
-        const num2 = terms[1].trim();    
+        const num2 = terms[1].trim();
         let n = parseInt(num1);
         let r = parseInt(num2);
         console.log(n)
-        if(n < 1){
+        if (n < 1) {
             console.log(r)
             return 0;
         }
 
-        return  Number(factorial(n+r-1)/(factorial(r)*(factorial(n-1))));
-    }else{
+        return Number(factorial(n + r - 1) / (factorial(r) * (factorial(n - 1))));
+    } else {
         return "Syntax Error";
     }
 }
 
-function variation(expresion){
+function variation(expresion) {
     const terms = expresion.split(',');
 
     if (terms.length === 2) {
         const num1 = terms[0].trim();
-        const num2 = terms[1].trim();    
+        const num2 = terms[1].trim();
         let n = parseInt(num1);
         let r = parseInt(num2);
-        
-        if(r>=n){
+
+        if (r >= n) {
             return 0;
         }
 
-        return parseInt(factorial(n)/(factorial(n-r)));
-    }else{
+        return parseInt(factorial(n) / (factorial(n - r)));
+    } else {
         return "Syntax Error";
     }
 }
 
-function variationRepetition(expresion){
+function variationRepetition(expresion) {
     const terms = expresion.split(',');
 
     if (terms.length === 2) {
         const num1 = terms[0].trim();
-        const num2 = terms[1].trim();    
+        const num2 = terms[1].trim();
         let n = parseInt(num1);
         let r = parseInt(num2);
-        return  (Math.pow(n,r));
-    }else{
+        return (Math.pow(n, r));
+    } else {
         return "Syntax Error";
     }
 }
 
 function heapSort(inputString) {
     const numbers = inputString.split(',').map(Number);
-    const tree = new Tree();
 
-    for (const num of numbers) {
-        tree.insert(num);
+    function heapSort(arr) {
+        const n = arr.length;
+
+        function heapify(arr, n, i) {
+            let largest = i;
+            const left = 2 * i + 1;
+            const right = 2 * i + 2;
+
+            if (left < n && arr[left] > arr[largest]) {
+                largest = left;
+            }
+
+            if (right < n && arr[right] > arr[largest]) {
+                largest = right;
+            }
+
+            if (largest !== i) {
+                const temp = arr[i];
+                arr[i] = arr[largest];
+                arr[largest] = temp;
+
+                heapify(arr, n, largest);
+            }
+        }
+
+        for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        for (let i = n - 1; i > 0; i--) {
+            const temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            heapify(arr, i, 0);
+        }
     }
-
-    const sortedNumbers = [];
-    while (tree.size > 0) {
-        const minValue = tree.remove();
-        sortedNumbers.push(minValue);
-    }
-
-    const sortedString = sortedNumbers.join(',');
-
+    heapSort(numbers);
+    const sortedString = numbers.join(',');
     return sortedString;
 }
+
 
 
 //Divisores:
 
 function primeNumber(numero) {
     if (numero <= 1) {
-      return false;
+        return false;
     }
     for (let i = 2; i <= Math.sqrt(numero); i++) {
-      if (numero % i === 0) {
-        return false;
-      }
+        if (numero % i === 0) {
+            return false;
+        }
     }
     return true;
-  }
-  
-  function getDivisors(numero) {
+}
+
+function getDivisors(numero) {
     const divisores = [];
     for (let i = 1; i <= numero; i++) {
-      if (numero % i === 0) {
-        divisores.push(i);
-      }
+        if (numero % i === 0) {
+            divisores.push(i);
+        }
     }
     return divisores.join(', ');
-  }
-  
-  function divisorsFunction(expression) {
+}
+
+function divisorsFunction(expression) {
     let numero = parseInt(expression);
 
-    if (typeof(numero) !== 'number' || !Number.isInteger(numero)) {
-      return 'Syntax Error';
+    if (typeof (numero) !== 'number' || !Number.isInteger(numero)) {
+        return 'Syntax Error';
     }
-  
+
     if (primeNumber(numero)) {
-      const divisores = getDivisors(numero);
-      return `${numero} es un número primo. \nDivisores: ${divisores}`;
+        const divisores = getDivisors(numero);
+        return `${numero} es un número primo. \nDivisores: ${divisores}`;
     } else {
-      const divisores = getDivisors(numero);
-      return `${numero} no es un número primo. \nDivisores: ${divisores}`;
+        const divisores = getDivisors(numero);
+        return `${numero} no es un número primo. \nDivisores: ${divisores}`;
     }
-  }
+}
