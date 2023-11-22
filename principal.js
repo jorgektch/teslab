@@ -11,7 +11,7 @@ function principal(event) {
 function procesar(entrada) {
     // Set de expresiones
     let comandos = ["evaluate", "solve", "simplify", "boolean table", "prefix", "postfix", "factorial",
-        "combinatorics repetition", "variation repetition", "combinatorics", "variation", "sorter", "divisors"];
+        "combinatorics repetition", "variation repetition", "combinatorics", "variation", "sort", "divisors"];
 
     for (let i = 0; i < comandos.length; ++i) {
         let comando = comandos[i];
