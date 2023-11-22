@@ -474,7 +474,7 @@ function primeNumber(numero) {
     }
   
     if (primeNumber(numero)) {
-      const divisores = getDivisor(numero);
+      const divisores = getDivisors(numero);
       return `${numero} es un número primo. \nDivisores: ${divisores}`;
     } else {
       const divisores = getDivisors(numero);
