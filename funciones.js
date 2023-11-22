@@ -464,7 +464,14 @@ function heapsortSorter(expression) {
     }
     heapSort(numbers);
     const sortedString = numbers.join(',');
-    return sortedString;
+
+    if (sortedOutput !== undefined) {
+        return sortedString;
+    } else {
+        return "El input no contiene números separados por comas.";
+    }
+
+    
 }
 
 
