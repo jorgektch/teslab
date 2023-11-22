@@ -422,7 +422,7 @@ function variationRepetition(expresion) {
     }
 }
 
-function heapSort(inputString) {
+function heapsortSorter(inputString) {
     const numbers = inputString.split(',').map(Number);
 
     function heapSort(arr) {

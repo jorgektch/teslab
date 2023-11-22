@@ -32,7 +32,7 @@ function procesar(entrada) {
             else if (comando == comandos[8]) return "Resultado: " + variationRepetition(expresion);
             else if (comando == comandos[9]) return "Resultado: " + combinatorics(expresion);
             else if (comando == comandos[10]) return "Resultado: " + variation(expresion);
-            else if (comando == comandos[11]) return "Resultado: " + heapSort(expresion);
+            else if (comando == comandos[11]) return "Resultado: " + heapsortSorter(expresion);
             else if (comando == comandos[12]) return "Resultado: " + divisorsFunction(expresion);
 
 
