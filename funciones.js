@@ -440,3 +440,44 @@ function heapSort(inputString) {
 
     return sortedString;
 }
+
+
+//Divisores:
+
+function primeNumber(numero) {
+    if (numero <= 1) {
+      return false;
+    }
+    for (let i = 2; i <= Math.sqrt(numero); i++) {
+      if (numero % i === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  function getDivisors(numero) {
+    const divisores = [];
+    for (let i = 1; i <= numero; i++) {
+      if (numero % i === 0) {
+        divisores.push(i);
+      }
+    }
+    return divisores.join(', ');
+  }
+  
+  function divisorsFunction(expression) {
+    let numero = parseInt(expression);
+
+    if (typeof(numero) !== 'number' || !Number.isInteger(numero)) {
+      return 'Syntax Error';
+    }
+  
+    if (primeNumber(numero)) {
+      const divisores = getDivisor(numero);
+      return `${numero} es un número primo. \nDivisores: ${divisores}`;
+    } else {
+      const divisores = getDivisors(numero);
+      return `${numero} no es un número primo. \nDivisores: ${divisores}`;
+    }
+  }
