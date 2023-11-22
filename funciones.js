@@ -422,8 +422,8 @@ function variationRepetition(expresion) {
     }
 }
 
-function heapsortSorter(inputString) {
-    const numbers = inputString.split(',').map(Number);
+function heapsortSorter(expression) {
+    const numbers = expression.split(',').map(Number);
 
     function heapSort(arr) {
         const n = arr.length;
