@@ -1,14 +1,11 @@
 function simplifyExp(expresion) {
-    /* const algebra = require('node_modules/algebra.js');  
-    const expr = algebra.parse(expresion);
-    const simplifyExpression = expr.simplify();
-    const sample = simplifyExpression.toString();
-    return sample; */
+    //To do
     return 0
 }
 
 function solve(expresion) {
-    return expresion[2];
+    //To do
+    return 0;
 }
 
 function showBooleanTable(expression) {
@@ -331,15 +328,6 @@ function getFormatTable(matrix, operands) {
 
 function factorial(n) {
     let num = parseInt(n);
-
-
-    /* if(num === 0){
-        return 1;
-    
-    }else{
-        return num*factorial(num-1);
-    } */
-
     let f = 1;
     for (let i = 1; i <= n; i++) {
         f *= i;
@@ -422,46 +410,51 @@ function variationRepetition(expresion) {
     }
 }
 
+
+//sort (Por corregir)
+function heapify(arr, num, inum) {
+    let n = parseInt(num);
+    let i = parseInt(inum);
+    let largest = i;
+    const left = 2 * i + 1;
+    const right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    if (largest !== i) {
+        const temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = temp;
+
+        heapify(arr, n, largest);
+    }
+}
+
+function heapSort(arr) {
+    const n = arr.length;
+
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        heapify(arr, n, i);
+    }
+
+    for (let i = n - 1; i > 0; i--) {
+        const temp = arr[0];
+        arr[0] = arr[i];
+        arr[i] = temp;
+
+        heapify(arr, i, 0);
+    }
+}
+
 function heapsortSorter(expression) {
     const numbers = expression.split(',').map(Number);
 
-    function heapSort(arr) {
-        const n = arr.length;
-
-        function heapify(arr, n, i) {
-            let largest = i;
-            const left = 2 * i + 1;
-            const right = 2 * i + 2;
-
-            if (left < n && arr[left] > arr[largest]) {
-                largest = left;
-            }
-
-            if (right < n && arr[right] > arr[largest]) {
-                largest = right;
-            }
-
-            if (largest !== i) {
-                const temp = arr[i];
-                arr[i] = arr[largest];
-                arr[largest] = temp;
-
-                heapify(arr, n, largest);
-            }
-        }
-
-        for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-            heapify(arr, n, i);
-        }
-
-        for (let i = n - 1; i > 0; i--) {
-            const temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
-
-            heapify(arr, i, 0);
-        }
-    }
     heapSort(numbers);
     const sortedString = numbers.join(',');
 
@@ -475,8 +468,7 @@ function heapsortSorter(expression) {
 }
 
 
-
-//Divisores:
+//Divisors:
 
 function primeNumber(numero) {
     if (numero <= 1) {
