@@ -62,19 +62,22 @@ class Graph {
         }
         return minVertex;
     }
+
+    translateData() {
+        const elements = [];
+
+        for (var i = 0; i < this.vertices.length; i++) {
+        elements.push({ data: { id: this.vertices[i] } });
+        }
+
+        for (var i = 0; i < this.vertices.length; i++) {
+            for (var j = i + 1; j <= this.vertices.length; j++) {
+                const node1 = this.vertices[i];
+                const node2 = this.vertices[j]; // TODO
+                elements.push({ data: { id: `edge(${node1})(${node2})`, source: node1, target: node2, weight: this.adjacencyList[node1][node2] } });
+            }
+        }
+        console.log(elements)
+        return elements;
+    }
 }
-
-let g = new Graph();
-g.addVertex("start");
-g.addVertex("A");
-g.addVertex("B");
-g.addVertex("finish");
-
-g.addEdge("start", "A", 6);
-g.addEdge("start", "B", 2);
-g.addEdge("A", "finish", 1);
-g.addEdge("B", "A", 3);
-g.addEdge("B", "finish", 5)
-g.dijkstra("start");
-console.log("GRAPH");
-console.log(g);
