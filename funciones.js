@@ -328,11 +328,12 @@ function getFormatTable(matrix, operands) {
 
 function factorial(n) {
     let num = parseInt(n);
-    let f = 1;
-    for (let i = 1; i <= n; i++) {
-        f *= i;
+    if(num === 0){
+        return 1;
+    
+    }else{
+        return num*factorial(num-1);
     }
-    return f;
 }
 
 //combinations, permutations and variations:
