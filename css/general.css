@@ -46,6 +46,7 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    z-index: 99999;
 }
 
 #logo-header {
@@ -184,7 +185,7 @@ button:hover {
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
 }

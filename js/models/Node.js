@@ -9,6 +9,7 @@ class Node {
         this._left = null;
         this._right = null;
         this._middle = null;
+        this._parent = null;
     }
   
     //------------------------- Get & Set ----------------------------
@@ -60,6 +61,9 @@ class Node {
     setMiddle(){
         return this._middle;
     }
-  
+    
+    getParent() {
+      return this.parent;
+    }
 
   }
