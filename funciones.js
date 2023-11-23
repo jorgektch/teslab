@@ -502,20 +502,47 @@ function divisorsFunction(expression) {
     }
 }
 
-function shortestPath(expression) {
-    const graph = new Graph();
-    graph.addVertex("C");
-    graph.addVertex("A");
-    graph.addVertex("B");
-    graph.addVertex("D");
+function shortestPath(expresion){
+    const start = expresion.split(' to ')[0];
+    const end = expresion.split(' to ')[1].split(' when')[0];
 
-    graph.addEdge("C", "A", 6);
-    graph.addEdge("C", "B", 2);
-    graph.addEdge("A", "D", 1);
-    graph.addEdge("B", "A", 3);
-    graph.addEdge("B", "D", 5)
-    document.getElementById("cy").style.display = "block"
+    const nodes = [];
 
-    graph.printGraph();
+    const nodes_list = Array.from(expresion.split('nodes={')[1].split('}')[0].split(','));
+    const edges_list = Array.from(expresion.split('edges={(')[1].split(')}')[0].split('),('));
+    
+    var graph = new WeightedGraph();
 
+    for (let i = 0; i < nodes_list.length; i++) {
+        let node = nodes_list[i];
+        graph.addVertex(node);
+    }
+    
+    for (let i = 0; i < edges_list.length; i++) {
+        let edge = edges_list[i];
+        graph.addEdge(edge.split(',')[0], edge.split(',')[1], parseInt(edge.split(',')[2]));
+    }
+    
+
+    /*
+    let aux = "";
+    for (let i = 0; i < nodes_list.length; i++) {
+        aux = aux+nodes_list[i]+"-";
+    }
+
+    
+
+    let aux2 = "";
+    for (let i = 0; i < edges_list.length; i++) {
+        let edge = edges_list[i].split('(')[1];
+        aux2 = aux2+"/"+edge+"/";
+        
+    }
+    */
+
+
+    
+    
+
+    return graph.Dijkstra(start, end);
 }
