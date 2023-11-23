@@ -455,17 +455,10 @@ function heapSort(arr) {
 
 function heapsortSorter(expression) {
     const numbers = expression.split(',').map(Number);
-
     heapSort(numbers);
     const sortedString = numbers.join(',');
 
-    if (sortedOutput !== undefined) {
-        return sortedString;
-    } else {
-        return "El input no contiene números separados por comas.";
-    }
-
-    
+    return sortedString;    
 }
 
 
