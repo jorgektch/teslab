@@ -263,3 +263,13 @@ footer {
     font-size: 15px;
     font-weight: 800;
 }
+
+#cy {
+    width: 700px;
+    height: 600px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+}
