@@ -1,5 +1,5 @@
 //helper class for PriorityQueue
-class Node {
+class NodeGraph {
     constructor(val, priority) {
       this.val = val;
       this.priority = priority;
@@ -11,7 +11,7 @@ class Node {
       this.values = [];
     }
     enqueue(val, priority) {
-      let newNode = new Node(val, priority);
+      let newNode = new NodeGraph(val, priority);
       this.values.push(newNode);
       this.bubbleUp();
     }
@@ -137,6 +137,7 @@ class Node {
   
   //EXAMPLES=====================================================================
   
+  /*
   var graph = new WeightedGraph();
   graph.addVertex("A");
   graph.addVertex("B");
@@ -155,3 +156,4 @@ class Node {
   graph.addEdge("E", "F", 1);
   
   console.log(graph.Dijkstra("A", "E"));
+  */
