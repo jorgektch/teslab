@@ -87,11 +87,39 @@
     width: 100%;
     height: 50%;
     background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#container-input h1 {
+    width: 100%;
+    height: auto;
+}
+
+#input {
+    width: 100%;
+    height: 70%;
+    background: #234;
 }
 
 #container-result {
     width: 100%;
     height: 50%;
-    background: gray;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#container-result h1 {
+    width: 100%;
+    height: auto;
+}
+
+#result {
+    width: 100%;
+    height: 70%;
+    background: #234;
 }
 
