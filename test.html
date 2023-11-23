@@ -22,7 +22,7 @@
     // Crear un objeto Cytoscape.js con un grafo simple
     var cy = cytoscape({
       container: document.getElementById('cy'),
-      elements: generateRandomGraph(5), // Cambié el número de nodos a 2 para mostrar solo la arista entre nodo1 y nodo2
+      elements: generateRandomGraph(5),
       style: [
         {
           selector: 'node',
@@ -65,7 +65,7 @@
         elements.push({ data: { id: 'edge' + i + j, source: 'node' + i, target: 'node' + j, weight: weight } });
       }
     }
-
+    console.log(elements)
     return elements;
   }
 </script>
