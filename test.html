@@ -1,11 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph Visualization with Cytoscape.js</title>
+  <style>
+    #cy {
+  width: 500px;
+  height: 500px;
+  display: block;
+}
+  </style>
 </head>
 <body>
-    <script src="./js/ExpressionEvaluator.js"></script>
+
+<div id="cy"></div>
+
+<script src="./js/cytoscape.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Crear un objeto Cytoscape.js con un grafo simple
+    var cy = cytoscape({
+      container: document.getElementById('cy'),
+      elements: generateRandomGraph(5), // Cambié el número de nodos a 2 para mostrar solo la arista entre nodo1 y nodo2
+      style: [
+        {
+          selector: 'node',
+          style: {
+            'background-color': function (ele) {
+              return ["node1", "node2"].includes(ele.data('id')) ? 'red' : 'blue'; // Asignar colores distintos a los nodos
+            },
+            'label': 'data(id)'
+          }
+        },
+        {
+          selector: 'edge',
+          style: {
+            'width': 3,
+            'line-color': function (ele) {
+              return (ele.source().id() === 'node1' && ele.target().id() === 'node2') ? 'red' : '#ccc';
+            },
+            'target-arrow-color': '#ccc',
+            'target-arrow-shape': 'triangle',
+            'label': 'data(weight)'
+          }
+        }
+      ]
+    });
+  });
+
+  // Función para generar un grafo aleatorio con nodos y aristas con pesos
+  function generateRandomGraph(numNodes) {
+    var elements = [];
+
+    // Crear nodos
+    for (var i = 1; i <= numNodes; i++) {
+      elements.push({ data: { id: 'node' + i } });
+    }
+
+    // Crear aristas con pesos aleatorios
+    for (var i = 1; i <= numNodes; i++) {
+      for (var j = i + 1; j <= numNodes; j++) {
+        var weight = Math.floor(Math.random() * 10) + 1; // Peso aleatorio entre 1 y 10
+        elements.push({ data: { id: 'edge' + i + j, source: 'node' + i, target: 'node' + j, weight: weight } });
+      }
+    }
+
+    return elements;
+  }
+</script>
+
 </body>
 </html>
