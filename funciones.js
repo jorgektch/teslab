@@ -501,3 +501,21 @@ function divisorsFunction(expression) {
         return `${numero} no es un número primo. \nDivisores: ${divisores}`;
     }
 }
+
+function shortestPath(expression) {
+    const graph = new Graph();
+    graph.addVertex("C");
+    graph.addVertex("A");
+    graph.addVertex("B");
+    graph.addVertex("D");
+
+    graph.addEdge("C", "A", 6);
+    graph.addEdge("C", "B", 2);
+    graph.addEdge("A", "D", 1);
+    graph.addEdge("B", "A", 3);
+    graph.addEdge("B", "D", 5)
+    document.getElementById("cy").style.display = "block"
+
+    graph.printGraph();
+
+}

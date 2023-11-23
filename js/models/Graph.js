@@ -73,11 +73,43 @@ class Graph {
         for (var i = 0; i < this.vertices.length; i++) {
             for (var j = i + 1; j <= this.vertices.length; j++) {
                 const node1 = this.vertices[i];
-                const node2 = this.vertices[j]; // TODO
+                const node2 = this.vertices[j];
                 elements.push({ data: { id: `edge(${node1})(${node2})`, source: node1, target: node2, weight: this.adjacencyList[node1][node2] } });
             }
         }
         console.log(elements)
         return elements;
+    }
+
+    printGraph() {
+        const cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: this.translateData(),
+            style: [
+              {
+                selector: 'node',
+                style: {
+                  /* 'background-color': function (ele) {
+                      return ["node1", "node2"].includes(ele.data('id')) ? 'red' : 'blue'; // Asignar colores distintos a los nodos
+                    }, */
+                  'background-color': 'red',
+                  'label': 'data(id)'
+                }
+              },
+              {
+                selector: 'edge',
+                style: {
+                  'width': 3,
+                  /* 'line-color': function (ele) {
+                    return (ele.source().id() === 'node1' && ele.target().id() === 'node2') ? 'red' : '#ccc';
+                  }, */
+                  'line-color': 'blue',
+                  'target-arrow-color': '#ccc',
+                  'target-arrow-shape': 'triangle',
+                  'label': 'data(weight)'
+                }
+              }
+            ]
+          });
     }
 }
